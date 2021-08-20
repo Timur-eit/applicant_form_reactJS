@@ -1,0 +1,32 @@
+.file-input-container {
+    input {
+        display: none;
+    }
+
+    .file-input-label {
+        background-color: grey;
+        position: relative;
+        width: 100%;
+        .file-input-label__cross {
+            position: absolute;
+            &.file-input-label__cross:before,
+            &.file-input-label__cross:after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 20px;
+                height: 2px;
+                background: black;
+            }
+            &.file-input-label__cross:before {
+                transform: rotate(-90deg);
+            }
+        }
+    }
+
+
+
+
+
+}
