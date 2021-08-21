@@ -2,13 +2,13 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.scss';
-
 interface IModalWindowProps {
   openButtonTitle: string,
   modalTitle: string,
   modalText: string,
   closeButtonText: string,
-  configs? : any,
+  openState?: boolean | undefined,
+  setExternalOpenState?: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 const ModalWindow: React.FC<IModalWindowProps> = (props) => {
@@ -18,11 +18,20 @@ const ModalWindow: React.FC<IModalWindowProps> = (props) => {
     modalTitle,
     modalText,
     closeButtonText,
+    openState,
   } = props;
 
     const [show, setShow] = React.useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    React.useEffect(() => {
+      if (openState) {
+        handleShow()
+      } 
+    }, [openState]);
+
+    // console.log(show)
 
     return (
       <>
