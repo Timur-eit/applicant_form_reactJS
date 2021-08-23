@@ -8,30 +8,34 @@ import {IAction, IStore} from './interfaces';
 
 export const moduleName = 'applicantForm'
 
-export const SET_OPEN_SUBMIT_MODAL = `${moduleName}/SET_OPEN_SUBMIT_MODAL`
+export const SET_OPEN_SUBMIT_WINDOW = `${moduleName}/SET_OPEN_SUBMIT_WINDOW`
+export const SET_OPEN_POLICY_WINDOW = `${moduleName}/SET_OPEN_POLICY_WINDOW`
 
 export interface IReducerRecord {
     // joined: boolean,
-    isOpenSubmitModal: boolean,
+    isOpenSubmitWindow: boolean,
+    isOpenPolicyWindow: boolean,
     // userName: null | string,
     // users: string[],
     // messages: IMessage[],
 }
 
-export const reducerRecord: IReducerRecord = {
-    // joined: false,
-    isOpenSubmitModal: false,
+export const reducerRecord: IReducerRecord = {    
+    isOpenSubmitWindow: false,
+    isOpenPolicyWindow: false,
 };
 
 export default function reducer(state = reducerRecord, action: IAction) {
     const {type, payload} = action
 
     switch (type) {
-        case SET_OPEN_SUBMIT_MODAL:
+        case SET_OPEN_SUBMIT_WINDOW:
             return Object.assign({}, state, {
-                // joined: payload.joined,
-                userName: payload.userName,
-                roomId: payload.roomId,
+                isOpenSubmitWindow: payload,
+            })
+        case SET_OPEN_POLICY_WINDOW:
+            return Object.assign({}, state, {
+                isOpenPolicyWindow: payload,
             })
         default:
             return state
@@ -39,36 +43,19 @@ export default function reducer(state = reducerRecord, action: IAction) {
 }
 
 export const stateSelector = (state: IStore<IReducerRecord>) => state[moduleName]
-// export const joinedSelector = createSelector(stateSelector, state => state.joined)
-export const roomIdSelector = createSelector(stateSelector, state => state.roomId)
-export const userNameSelector = createSelector(stateSelector, state => state.userName)
-export const usersSelector = createSelector(stateSelector, state => state.users)
-export const messagesSelector = createSelector(stateSelector, state => state.messages)
+export const isOpenSubmitWindowSelector = createSelector(stateSelector, state => state.isOpenSubmitWindow)
+export const isOpenPolicyWindowSelector = createSelector(stateSelector, state => state.isOpenPolicyWindow)
 
-export const setUsers = (users: string[]): ThunkAction<void, IStore<IReducerRecord>, unknown, AnyAction> => (dispatch): void => {
+export const setOpenSubmitWindow = (openState: boolean): ThunkAction<void, IStore<IReducerRecord>, unknown, AnyAction> => (dispatch): void => {    
     dispatch({
-        type: SET_USERS,
-        payload: users
+        type: SET_OPEN_SUBMIT_WINDOW,
+        payload: openState,
     })
 }
-
-export const onLogin = (obj: IUserData): ThunkAction<void, IStore<IReducerRecord>, unknown, AnyAction> => async (dispatch): Promise<void> => {
+export const setOpenPolicyWindow = (openState: boolean): ThunkAction<void, IStore<IReducerRecord>, unknown, AnyAction> => (dispatch): void => {    
     dispatch({
-        type: JOINED,
-        // payload: {joined: true, userName: obj.userName, roomId: obj.roomId},
-        payload: obj,
-    })
-
-    socket.emit(socketActions.ROOM_JOIN, obj)
-
-    const serverResponse = await axios.get(`http://localhost:9999/rooms/${obj.roomId}`)
-    const responseData: IRoomData = serverResponse.data
-    if (!responseData.users.includes(obj.userName)) {
-        responseData.users.push(obj.userName)
-    }
-    dispatch({
-        type: SET_USERS,
-        payload: responseData.users,
+        type: SET_OPEN_POLICY_WINDOW,
+        payload: openState,
     })
 }
 

@@ -3,45 +3,78 @@ import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.scss';
 interface IModalWindowProps {
-  openButtonTitle: string,
+  openButtonTitle?: string,
+  declineButton: boolean,
   modalTitle: string,
   modalText: string,
   closeButtonText: string,
+  modalButtonVisible: boolean,
   openState?: boolean | undefined,
-  setExternalOpenState?: React.Dispatch<React.SetStateAction<boolean>>,
+  externalSetOpenState?: (state: boolean) => void,
+  additionalStateHandler?: (state: boolean) => void,
+  acceptAction?: () => void,
+  declineAction?: () => void,
 }
 
 const ModalWindow: React.FC<IModalWindowProps> = (props) => {
 
   const {
     openButtonTitle,
+    declineButton,
     modalTitle,
     modalText,
     closeButtonText,
+    modalButtonVisible,
     openState,
+    externalSetOpenState,
+    additionalStateHandler,
+    acceptAction,
+    declineAction
   } = props;
 
-    const [show, setShow] = React.useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const [show, setShow] = React.useState<boolean>(false);
+    
+    const handleClose = (): void => {
+        setShow(false);
+
+        if (openState && externalSetOpenState) {
+            externalSetOpenState(false);
+        }      
+        if (additionalStateHandler) {
+            additionalStateHandler(true);
+        }
+        if (acceptAction) {
+            acceptAction();
+        }
+    };
+
+    const declineHanlder = (): void => {
+        if (declineAction) {
+            declineAction();
+        }
+        setShow(false);
+    }
+
+    const handleShow= (): void => setShow(true);
 
     React.useEffect(() => {
-      if (openState) {
-        handleShow()
-      } 
-    }, [openState]);
-
-    // console.log(show)
+        if (openState) {
+            handleShow()
+        } 
+    }, [openState]);    
 
     return (
       <>
-        <Button variant="primary" onClick={() => handleShow()}>
+        {modalButtonVisible && <Button variant="primary" onClick={() => handleShow()}>
           {openButtonTitle}
-        </Button>
+        </Button>}
 
         <Modal show={show} onHide={() => handleClose()} centered>
             <Modal.Body>
-                <Modal.Title>{modalTitle}</Modal.Title>
+                <div className='modal-title-block'>
+                  <Modal.Title>{modalTitle}</Modal.Title>
+                  {declineButton && <div onClick={() => declineHanlder()} className={'decline-btn'}></div>}
+                </div>
                 <p>{modalText}</p>
                 <Button variant="primary" onClick={() => handleClose()}>
                     {closeButtonText}

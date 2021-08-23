@@ -7,9 +7,44 @@
             flex-direction: column;
             align-items: center;
             justify-content: space-between;            
-            .modal-title {
-                font-weight: bold;
-            }            
+            
+            
+            .modal-title-block {
+                .modal-title {
+                    font-weight: bold;
+                }    
+                .decline-btn {
+                    position: absolute;
+                    top: 5px;
+                    right: 5px;
+                    width: 55px;
+                    height: 55px;
+                    cursor: pointer;
+                    
+                    /* border: 4px solid #e62f57; */
+                    /* border-radius: 50%; */
+                    &.decline-btn:before,
+                    &.decline-btn:after {
+                      content: "";
+                      position: absolute;
+                      top: 21px;
+                      left: 10px;
+                      width: 26px;
+                      height: 2px;
+                      background: #0d6efd;
+                    }
+              
+                    &.decline-btn:before {
+                      transform: rotate(45deg);
+                      /* margin-top: 20px; */
+                    }
+              
+                    &.decline-btn:after {
+                      transform: rotate(-45deg);
+                    }
+                }    
+            }
+            
             .btn {
                 width: 100%;
             }
