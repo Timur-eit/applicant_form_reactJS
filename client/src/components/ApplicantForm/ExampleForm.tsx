@@ -6,14 +6,17 @@ import ModalWindow from 'shared/ui/Modal';
 // import { Button } from 'react-bootstrap';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { useForm, SubmitHandler } from 'react-hook-form';
+
+import FileInput from 'components/FileInput'
+
+import { useForm, SubmitHandler} from 'react-hook-form';
 
 type Inputs = {
-    name: string,
-    surname: string,
-    age: string,
+    firstName: string,
+    lastName: string,
     email: string,
-    file: string
+    file: File,    
+    gender: string,
   };
 
 interface IExampleFormProps {
@@ -32,7 +35,15 @@ function ExampleForm(props: IExampleFormProps) {
         setOpenPolicyWindow
     } = props;
 
-//    const [isSubmitModalOpen, setSubmitModalOpen] = React.useState<boolean>(false)
+const defaultValues: Inputs = React.useMemo(() => {
+    return {
+        firstName: '',
+        lastName: '',
+        email: '',
+        file: new File([], ''),
+        gender: ''
+    }
+}, [])
 
     const {
         register,
@@ -40,50 +51,66 @@ function ExampleForm(props: IExampleFormProps) {
         reset,
         formState: {errors, isSubmitSuccessful},
         // watch,
-    } = useForm<Inputs>()
+    } = useForm<Inputs>({defaultValues})
 
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         console.log('Data sent ', data);
-        // setSubmitModalOpen(true);
         setOpenSubmitWindow(true);
     }
 
-    // const name = watch('name');
-    // console.log('Name ' + name);
-    // console.log(errors)
-
-    // console.log(isSubmitModalOpen)
 
     React.useEffect(() => {
         if (isSubmitSuccessful) {
-          reset();
+          reset(defaultValues);
         }
-    }, [reset, isSubmitSuccessful]);    
+    }, [reset, isSubmitSuccessful, defaultValues]);
 
-    // React.useEffect(() => {
-    //     if (isOpenSubmitWindow) {
-    //         setTimeout(() => setOpenPolicyState(true), 100)
-    //     }
-    // }, [isOpenSubmitWindow]);
 
     return (
         <>
-            {/* <button onClick={() => setOpenSubmitWindow()}>Change state</button> */}
             <form onSubmit={handleSubmit((data) =>onSubmit(data))}>
-                <input type='text' {...register('name', {required: 'This field is required', maxLength: 10})} />
-                {errors.name && <span>{errors.name.message}</span>}
-                <hr />
-                <input type='text' {...register('surname', {required: 'This field is required', maxLength: {value: 10, message: 'You exceeded max length'}})} />
-                {errors.surname && <span>{errors.surname.message}</span>}
-                <hr />
-                <input type='email' {...register('email', {required: 'This field is required', pattern: {value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: 'invalid email'}})} />
-                {errors.email && <span>{errors.email.message}</span>}
-                <hr />
-                <input type='number' {...register('age', {valueAsNumber: true})} />
-                <hr />
+
+                <label>
+                    Имя
+                    <input type='text' {...register('firstName', {required: 'This field is required', maxLength: 10})} />
+                    {errors.firstName && <span>{errors.firstName.message}</span>}
+                </label>
+
+                <label>
+                    Фамилия
+                    <input type='text' {...register('lastName', {required: 'This field is required', maxLength: {value: 10, message: 'You exceeded max length'}})} />
+                    {errors.lastName && <span>{errors.lastName.message}</span>}
+                </label>
+
+                <label>
+                    Электронная почта
+                    <input type='email' {...register('email', {required: 'This field is required', pattern: {value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: 'invalid email'}})} />
+                    {errors.email && <span>{errors.email.message}</span>}
+                </label>
+
+
                 {/* <input type='file' {...register('file')} /> */}
-                {/* <hr /> */}
-                {/* <Button variant="primary" type='submit'>Sent</Button> */}
+                <FileInput
+                    labelName={'Загрузить резюме'}
+                    inputName={'file'}
+                    params={register('file')}
+                />
+
+
+
+                <label>
+                    male
+                    <input type='radio' {...register('gender', {required: 'This field is required'})} value='male' />
+                </label>
+
+                <label>
+                    female
+                    <input type='radio' {...register('gender', {required: 'This field is required'})} value='female' />
+                </label>
+
+
+                {errors.gender && <span>{errors.gender.message}</span>}
+                <hr />
 
                 <button type='submit'>
                     Sent
@@ -108,7 +135,6 @@ function ExampleForm(props: IExampleFormProps) {
                         declineButton={true}
                         openState={isOpenPolicyWindow}
                         externalSetOpenState={setOpenPolicyWindow}
-                        // additionalStateHandler={}
                         acceptAction={() => console.log('он согласен')}
                         declineAction={() => console.log('он НЕ согласен')}
                     />
