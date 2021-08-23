@@ -1,15 +1,16 @@
 import React from 'react';
 import ModalWindow from 'shared/ui/Modal';
 import FileInput from 'components/FileInput';
-import { useForm, SubmitHandler} from 'react-hook-form';
+import {Formik, Field, Form } from "formik";
 
-type Inputs = {
+interface Inputs {
     firstName: string,
     lastName: string,
     email: string,
-    file: FileList,
+    file: FileList | null,
     gender: string,
-  };
+    isConfirm: boolean
+}
 
 interface IExampleFormProps {
     isOpenSubmitWindow: boolean,
@@ -18,14 +19,27 @@ interface IExampleFormProps {
     setOpenPolicyWindow: (state: boolean) => void,
 }
 
-interface FileList {
-    [Symbol.iterator](): IterableIterator<File>;
+interface IError {
+    [field : string] : string
 }
 
+const validate = (values: Inputs): IError => {
+    const error: IError = {};
+    if(!values.firstName) {
+        error.firstName = 'firstName is required';
+    }
+    if(!values.lastName) {
+        error.lastName = 'lastName is required';
+    }
+    if (!values.email) {
+        error.email = 'email is required';
+    } else if (!(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email))) {
+        error.email = "email don't match";
+    }
+    return error;
+}
 
 function ExampleForm(props: IExampleFormProps) {
-    const dataTransfer = new DataTransfer();
-    const defaultFileList: FileList = dataTransfer.files;
 
     const {
         isOpenSubmitWindow,
@@ -34,87 +48,67 @@ function ExampleForm(props: IExampleFormProps) {
         setOpenPolicyWindow
     } = props;
 
-    const {
-        register,
-        handleSubmit,
-        reset,
-        formState: {errors, isSubmitSuccessful},
-        // watch,
-    } = useForm<Inputs>({defaultValues: {
+    const defaultValues: Inputs = React.useMemo(() => {
+        return {
             firstName: '',
             lastName: '',
             email: '',
-            file: defaultFileList,
-            gender: ''
-    }})
-
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-        console.log('Data sent ', data);
-        setOpenSubmitWindow(true);
-    }
-
-
-    React.useEffect(() => {
-        if (isSubmitSuccessful) {
-            reset({
-                firstName: '',
-                lastName: '',
-                email: '',
-                file: defaultFileList,
-                gender: ''
-            });
+            file: null,
+            gender: '',
+            isConfirm: false
         }
-    }, [reset, isSubmitSuccessful, defaultFileList]);
-
+    }, [])
 
     return (
-        <>
-            <form onSubmit={handleSubmit((data) =>onSubmit(data))}>
+        <Formik
+            initialValues={defaultValues}
+            onSubmit={(values: Inputs, {resetForm}) => {
+                console.log(values)
+                setOpenSubmitWindow(true)
+                resetForm()
+            }}
+            validate={validate}
+        >
+            {
+                ({setFieldValue, errors, touched}) => <Form>
+                    <label>
+                        Имя
+                        <Field name="firstName" />
+                        {touched.firstName && errors.firstName && <span>{errors.firstName}</span>}
+                    </label>
 
-                <label>
-                    Имя
-                    <input type='text' {...register('firstName', {required: 'This field is required', maxLength: 10})} />
-                    {errors.firstName && <span>{errors.firstName.message}</span>}
-                </label>
+                    <label>
+                        Фамилия
+                        <Field name="lastName" />
+                        {touched.lastName && errors.lastName && <span>{errors.lastName}</span>}
+                    </label>
 
-                <label>
-                    Фамилия
-                    <input type='text' {...register('lastName', {required: 'This field is required', maxLength: {value: 10, message: 'You exceeded max length'}})} />
-                    {errors.lastName && <span>{errors.lastName.message}</span>}
-                </label>
+                    <label>
+                        Электронная почта
+                        <Field type='email' name="email"/>
+                        {touched.email && errors.email && <span>{errors.email}</span>}
+                    </label>
 
-                <label>
-                    Электронная почта
-                    <input type='email' {...register('email', {required: 'This field is required', pattern: {value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: 'invalid email'}})} />
-                    {errors.email && <span>{errors.email.message}</span>}
-                </label>
+                    <FileInput
+                        labelName={'Загрузить резюме'}
+                        inputName={'file'}
+                        setFieldValue={setFieldValue}
+                    />
 
-
-                {/* <input type='file' {...register('file')} /> */}
-                <FileInput
-                    labelName={'Загрузить резюме'}
-                    inputName={'file'}
-                    params={register('file')}
-                />
-
-                <label>
-                    male
-                    <input type='radio' {...register('gender', {required: 'This field is required'})} value='male' />
-                </label>
-
-                <label>
-                    female
-                    <input type='radio' {...register('gender', {required: 'This field is required'})} value='female' />
-                </label>
+                    <label>
+                        male
+                        <Field type='radio' name='gender' value="male"/>
+                    </label>
+                    <label>
+                        female
+                        <Field type='radio' name='gender' value="female" />
+                    </label>
+                    {touched.gender && errors.gender && <span>{errors.gender}</span>}
 
 
-                {errors.gender && <span>{errors.gender.message}</span>}
-                <hr />
-
-                <button type='submit'>
-                    Sent
-                </button>
-                {/* <div onClick={() => setSubmitModalOpen(false)}> */}
+                    <button type='submit'>
+                        Sent
+                    </button>
                     <ModalWindow
                         modalTitle={'Спасибо Егор!'}
                         declineButton={false}
@@ -137,10 +131,10 @@ function ExampleForm(props: IExampleFormProps) {
                         acceptAction={() => console.log('он согласен')}
                         declineAction={() => console.log('он НЕ согласен')}
                     />
-                {/* </div> */}
+                </Form>
+            }
 
-            </form>
-        </>
+        </Formik>
     );
 }
 

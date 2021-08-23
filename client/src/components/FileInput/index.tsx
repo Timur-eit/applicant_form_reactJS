@@ -4,21 +4,28 @@ import './style.scss'
 interface IFileInputProps {
     labelName: string,
     inputName: string,
-    params?: any
+    setFieldValue: (inputName: string, files: FileList | null) => void
 }
 
-const FileInput: React.FC<IFileInputProps> = ({labelName, inputName, params}) => {
+const FileInput: React.FC<IFileInputProps> = ({labelName, inputName, setFieldValue}) => {
     return (
-        <div className='file-input-container'>            
-            <label className='file-input-label' htmlFor="request-file-upload">
-                <input id="request-file-upload" name={inputName} type="file" {...params}/>
+        <div className='file-input-container'>
+            <label className='file-input-label'>
+                <input
+                    name={inputName}
+                    type="file"
+                    multiple={false}
+                    onChange={(event) => {
+                        const files: FileList | null = event.target.files;
+                        setFieldValue("file", files);
+                    }}
+                />
                 <div className='file-input-label__cross'></div>
-                <p>{labelName}</p>            
+                <p>{labelName}</p>
             </label>
         </div>
     )
 }
 
 export default FileInput;
-
 
