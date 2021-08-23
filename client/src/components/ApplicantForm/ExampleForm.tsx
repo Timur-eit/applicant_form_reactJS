@@ -24,10 +24,8 @@ interface FileList {
 
 
 function ExampleForm(props: IExampleFormProps) {
-    
-    // const defaultFileList: FileList = {
-    //     [Symbol()]: new File([], '')
-    // }
+    const dataTransfer = new DataTransfer();
+    const defaultFileList: FileList = dataTransfer.files;
 
     const {
         isOpenSubmitWindow,
@@ -36,23 +34,19 @@ function ExampleForm(props: IExampleFormProps) {
         setOpenPolicyWindow
     } = props;
 
-// const defaultValues: Inputs = React.useMemo(() => {
-//     return {
-//         firstName: '',
-//         lastName: '',
-//         email: '',
-//         file: new File([], ''),
-//         gender: ''
-//     }
-// }, [])
-
     const {
         register,
         handleSubmit,
         reset,
         formState: {errors, isSubmitSuccessful},
         // watch,
-    } = useForm<Inputs>()
+    } = useForm<Inputs>({defaultValues: {
+            firstName: '',
+            lastName: '',
+            email: '',
+            file: defaultFileList,
+            gender: ''
+    }})
 
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         console.log('Data sent ', data);
@@ -62,9 +56,15 @@ function ExampleForm(props: IExampleFormProps) {
 
     React.useEffect(() => {
         if (isSubmitSuccessful) {
-            // reset();
+            reset({
+                firstName: '',
+                lastName: '',
+                email: '',
+                file: defaultFileList,
+                gender: ''
+            });
         }
-    }, [reset, isSubmitSuccessful]);
+    }, [reset, isSubmitSuccessful, defaultFileList]);
 
 
     return (
