@@ -1,21 +1,13 @@
 import React from 'react';
 import ModalWindow from 'shared/ui/Modal';
-// import TextInput from 'components/TextInput'
-// import FileInput from 'components/FileInput'
-
-// import { Button } from 'react-bootstrap';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-
-
-import FileInput from 'components/FileInput'
-
+import FileInput from 'components/FileInput';
 import { useForm, SubmitHandler} from 'react-hook-form';
 
 type Inputs = {
     firstName: string,
     lastName: string,
     email: string,
-    file: File,    
+    file: FileList,
     gender: string,
   };
 
@@ -26,8 +18,17 @@ interface IExampleFormProps {
     setOpenPolicyWindow: (state: boolean) => void,
 }
 
+interface FileList {
+    [Symbol.iterator](): IterableIterator<File>;
+}
+
 
 function ExampleForm(props: IExampleFormProps) {
+    
+    // const defaultFileList: FileList = {
+    //     [Symbol()]: new File([], '')
+    // }
+
     const {
         isOpenSubmitWindow,
         isOpenPolicyWindow,
@@ -35,15 +36,15 @@ function ExampleForm(props: IExampleFormProps) {
         setOpenPolicyWindow
     } = props;
 
-const defaultValues: Inputs = React.useMemo(() => {
-    return {
-        firstName: '',
-        lastName: '',
-        email: '',
-        file: new File([], ''),
-        gender: ''
-    }
-}, [])
+// const defaultValues: Inputs = React.useMemo(() => {
+//     return {
+//         firstName: '',
+//         lastName: '',
+//         email: '',
+//         file: new File([], ''),
+//         gender: ''
+//     }
+// }, [])
 
     const {
         register,
@@ -51,7 +52,7 @@ const defaultValues: Inputs = React.useMemo(() => {
         reset,
         formState: {errors, isSubmitSuccessful},
         // watch,
-    } = useForm<Inputs>({defaultValues})
+    } = useForm<Inputs>()
 
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         console.log('Data sent ', data);
@@ -61,9 +62,9 @@ const defaultValues: Inputs = React.useMemo(() => {
 
     React.useEffect(() => {
         if (isSubmitSuccessful) {
-          reset(defaultValues);
+            // reset();
         }
-    }, [reset, isSubmitSuccessful, defaultValues]);
+    }, [reset, isSubmitSuccessful]);
 
 
     return (
@@ -95,8 +96,6 @@ const defaultValues: Inputs = React.useMemo(() => {
                     inputName={'file'}
                     params={register('file')}
                 />
-
-
 
                 <label>
                     male

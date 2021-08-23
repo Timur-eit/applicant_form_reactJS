@@ -76,7 +76,7 @@ const ModalWindow: React.FC<IModalWindowProps> = (props) => {
                   {declineButton && <div onClick={() => declineHanlder()} className={'decline-btn'}></div>}
                 </div>
                 <p>{modalText}</p>
-                <Button variant="primary" onClick={() => handleClose()}>
+                <Button variant="primary" onClick={handleClose}>
                     {closeButtonText}
                 </Button>
             </Modal.Body>
