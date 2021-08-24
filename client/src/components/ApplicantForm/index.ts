@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import ExampleForm from './ExampleForm'
+import ApplicantForm from './ApplicantForm'
 import {IStore} from '../../ducks/interfaces'
 
 import {
@@ -16,4 +16,4 @@ export default connect((state: IStore<IReducerRecord>) => ({
 }), {
     setOpenSubmitWindow,
     setOpenPolicyWindow
-})(ExampleForm)
+})(ApplicantForm)

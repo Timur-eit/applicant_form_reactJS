@@ -1,3 +1,4 @@
+
 export interface IStore<R> {
     [projectModule: string]: R
 }

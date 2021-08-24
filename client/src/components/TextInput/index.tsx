@@ -1,34 +1,22 @@
-import React from 'react'
+import {FieldAttributes, FormikTouched, FormikErrors} from "formik";
 
+type FormikField = FieldAttributes<any>
 interface ITextInputProps {
+    inputName: string,
     labelName: string,
-    typeValue: string,
-    requiredValue: boolean,
-    placeholderText: string,
-    validationType?: any, 
+    FormikConnectorTag: FormikField,
+    touched: FormikTouched<any>,
+    errors: FormikErrors<any>
 }
 
-const TextInput: React.FC<ITextInputProps> = (props) => {
-    
-    const {
-        labelName,
-        typeValue,
-        requiredValue,
-        placeholderText,
-    } = props;
-    
-    
+function TextInput(props: ITextInputProps) {
+    const {inputName, labelName, FormikConnectorTag, touched, errors} = props;
     return (
-        <div>
-            <label>
-                {labelName}
-                <input
-                    type={typeValue}
-                    required={requiredValue}
-                    placeholder={placeholderText}
-                />
-            </label>
-        </div>
+        <label>
+            {labelName}
+            <FormikConnectorTag name={inputName} />
+            {touched[inputName] && errors[inputName] && <span>{errors[inputName]}</span>}
+        </label>
     )
 }
 

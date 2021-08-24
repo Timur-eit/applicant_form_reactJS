@@ -2,44 +2,36 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.scss';
-interface IModalWindowProps {
-  openButtonTitle?: string,
-  declineButton: boolean,
-  modalTitle: string,
-  modalText: string,
-  closeButtonText: string,
-  modalButtonVisible: boolean,
-  openState?: boolean | undefined,
-  externalSetOpenState?: (state: boolean) => void,
-  additionalStateHandler?: (state: boolean) => void,
-  acceptAction?: () => void,
-  declineAction?: () => void,
+import {IModalData} from 'shared/interfaces'
+
+export interface IModalWindowProps {
+    modalData: IModalData,
+    declineButton: boolean,
+    openState: boolean,
+    setOpenState: (state: boolean) => void,
+    additionalStateHandler?: (state: boolean) => void,
+    acceptAction?: () => void,
+    declineAction?: () => void,
+    onHide?: boolean
 }
 
-const ModalWindow: React.FC<IModalWindowProps> = (props) => {
+
+function ModalWindow(props: IModalWindowProps) {
 
   const {
-    openButtonTitle,
+    modalData,
     declineButton,
-    modalTitle,
-    modalText,
-    closeButtonText,
-    modalButtonVisible,
     openState,
-    externalSetOpenState,
+    setOpenState,
     additionalStateHandler,
     acceptAction,
-    declineAction
+    declineAction,
+    onHide
   } = props;
 
-    const [show, setShow] = React.useState<boolean>(false);
-    
     const handleClose = (): void => {
-        setShow(false);
+        setOpenState(false);
 
-        if (openState && externalSetOpenState) {
-            externalSetOpenState(false);
-        }      
         if (additionalStateHandler) {
             additionalStateHandler(true);
         }
@@ -51,33 +43,27 @@ const ModalWindow: React.FC<IModalWindowProps> = (props) => {
     const declineHanlder = (): void => {
         if (declineAction) {
             declineAction();
+            setOpenState(false);
         }
-        setShow(false);
     }
-
-    const handleShow= (): void => setShow(true);
 
     React.useEffect(() => {
         if (openState) {
-            handleShow()
-        } 
-    }, [openState]);    
+            setOpenState(true)
+        }
+    }, [openState, setOpenState]);
 
     return (
       <>
-        {modalButtonVisible && <Button variant="primary" onClick={() => handleShow()}>
-          {openButtonTitle}
-        </Button>}
-
-        <Modal show={show} onHide={() => handleClose()} centered>
+        <Modal show={openState} onHide={onHide ? () => handleClose(): null} centered>
             <Modal.Body>
                 <div className='modal-title-block'>
-                  <Modal.Title>{modalTitle}</Modal.Title>
+                  <Modal.Title>{modalData.title}</Modal.Title>
                   {declineButton && <div onClick={() => declineHanlder()} className={'decline-btn'}></div>}
                 </div>
-                <p>{modalText}</p>
+                {modalData.content}
                 <Button variant="primary" onClick={handleClose}>
-                    {closeButtonText}
+                    {modalData.closeButtonLabel}
                 </Button>
             </Modal.Body>
         </Modal>
@@ -86,42 +72,3 @@ const ModalWindow: React.FC<IModalWindowProps> = (props) => {
 }
 
 export default ModalWindow;
-
-
-// function CenteredModal(props: ModalProps) {
-  //     return (
-  //       <Modal
-  //         {...props}
-  //         size="lg"
-  //         aria-labelledby="contained-modal-title-vcenter"
-  //         centered
-  //       >
-  //         <Modal.Body>
-  //             <Modal.Title id="contained-modal-title-vcenter">
-  //                 Спасибо Егор!
-  //             </Modal.Title>
-  //             <p>Мы скоро свяжемся с вами</p>
-  //             <Button onClick={props.onHide}>Понятно</Button>
-  //         </Modal.Body>
-  //       </Modal>
-  //     );
-  //   }
-
-  // export function ModalWraper() {
-  //   const [modalShow, setModalShow] = React.useState(false);
-
-  //   return (
-  //     <>
-  //       <Button variant="primary" onClick={() => setModalShow(true)}>
-  //         Launch vertically centered modal
-  //       </Button>
-
-  //       <CenteredModal
-  //         show={modalShow}
-  //         onHide={() => setModalShow(false)}
-  //       />
-  //     </>
-  //   );
-  // }
-
-  // export default ModalWraper;

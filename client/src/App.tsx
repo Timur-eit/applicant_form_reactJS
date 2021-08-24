@@ -6,12 +6,12 @@ import React from 'react';
 // import { Button } from 'react-bootstrap';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
-import ExampleForm from 'components/ApplicantForm/';
+import ApplicantForm from 'components/ApplicantForm';
 
 function App() {
     return (
         <>
-         <ExampleForm />
+         <ApplicantForm />
         </>
     );
 }

@@ -1,52 +1,47 @@
-import React from 'react';
-import ModalWindow from 'shared/ui/Modal';
+import React, { Fragment } from 'react';
 import FileInput from 'components/FileInput';
 import {Formik, Field, Form } from "formik";
+import SubmitModal from 'components/SubmitModal';
+import PrivatePolicyModal from 'components/PrivacyPolicyModal';
+import validate from './validation';
 
-interface Inputs {
+import TextInput from 'components/TextInput'
+import RadioInput from 'components/RadioInput'
+
+import { formBlocks } from './formData';
+
+// const inputs  = formBlocks.privateData.inputs;
+// const defaultInputValues = inputs.reduce((prev: any, curr) => {
+//     if (curr.name !in prev) {
+//         prev[curr.name] = curr.defaultValue
+//     }
+//     return prev;
+// }, {})
+
+export interface Inputs {
     firstName: string,
     lastName: string,
     email: string,
     file: FileList | null,
     gender: string,
-    isConfirm: boolean
+    // isConfirm: boolean
 }
 
-interface IExampleFormProps {
+interface IApplicantFormProps {
     isOpenSubmitWindow: boolean,
     isOpenPolicyWindow: boolean,
     setOpenSubmitWindow: (state: boolean) => void,
     setOpenPolicyWindow: (state: boolean) => void,
 }
 
-interface IError {
-    [field : string] : string
-}
-
-const validate = (values: Inputs): IError => {
-    const error: IError = {};
-    if(!values.firstName) {
-        error.firstName = 'firstName is required';
-    }
-    if(!values.lastName) {
-        error.lastName = 'lastName is required';
-    }
-    if (!values.email) {
-        error.email = 'email is required';
-    } else if (!(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email))) {
-        error.email = "email don't match";
-    }
-    return error;
-}
-
-function ExampleForm(props: IExampleFormProps) {
-
+function ApplicantForm(props: IApplicantFormProps) {
     const {
         isOpenSubmitWindow,
         isOpenPolicyWindow,
         setOpenSubmitWindow,
         setOpenPolicyWindow
     } = props;
+
 
     const defaultValues: Inputs = React.useMemo(() => {
         return {
@@ -59,7 +54,10 @@ function ExampleForm(props: IExampleFormProps) {
         }
     }, [])
 
+
     return (
+        <Fragment>
+
         <Formik
             initialValues={defaultValues}
             onSubmit={(values: Inputs, {resetForm}) => {
@@ -71,11 +69,19 @@ function ExampleForm(props: IExampleFormProps) {
         >
             {
                 ({setFieldValue, errors, touched}) => <Form>
-                    <label>
+                    {/* <label>
                         Имя
                         <Field name="firstName" />
                         {touched.firstName && errors.firstName && <span>{errors.firstName}</span>}
-                    </label>
+                    </label> */}
+
+                    <TextInput
+                        FormikConnectorTag={Field}
+                        inputName={'firstName'}
+                        labelName={'Имя'}
+                        touched={touched}
+                        errors={errors}
+                    />
 
                     <label>
                         Фамилия
@@ -95,7 +101,7 @@ function ExampleForm(props: IExampleFormProps) {
                         setFieldValue={setFieldValue}
                     />
 
-                    <label>
+                    {/* <label>
                         male
                         <Field type='radio' name='gender' value="male"/>
                     </label>
@@ -103,39 +109,45 @@ function ExampleForm(props: IExampleFormProps) {
                         female
                         <Field type='radio' name='gender' value="female" />
                     </label>
-                    {touched.gender && errors.gender && <span>{errors.gender}</span>}
-
+                    {touched.gender && errors.gender && <span>{errors.gender}</span>} */}
+                    <RadioInput
+                        inputName='gender'
+                        FormikConnectorTag={Field}
+                        radioInputData={[
+                            {labelName: 'Мужчина', value: 'male'},
+                            {labelName: 'Женщина', value: 'female'}
+                        ]}
+                        touched={touched}
+                        errors={errors}
+                    />
 
                     <button type='submit'>
                         Sent
                     </button>
-                    <ModalWindow
-                        modalTitle={'Спасибо Егор!'}
-                        declineButton={false}
-                        modalText={'Мы скоро свяжемся с вами'}
-                        closeButtonText={'Понятно'}
-                        modalButtonVisible={false}
-                        openState={isOpenSubmitWindow}
-                        externalSetOpenState={setOpenSubmitWindow}
-                        additionalStateHandler={setOpenPolicyWindow}
-                    />
 
-                    <ModalWindow
-                        modalTitle={'Политика конфиденциальности'}
-                        modalText={'Текст политики конфиденциальности ...'}
-                        closeButtonText={'Я согласен'}
-                        modalButtonVisible={false}
-                        declineButton={true}
-                        openState={isOpenPolicyWindow}
-                        externalSetOpenState={setOpenPolicyWindow}
-                        acceptAction={() => console.log('он согласен')}
-                        declineAction={() => console.log('он НЕ согласен')}
-                    />
+
                 </Form>
             }
 
         </Formik>
+
+
+
+                    <SubmitModal
+                        userName={'NAME'}
+                        openState={isOpenSubmitWindow}
+                        setOpenState={setOpenSubmitWindow}
+                        additionalStateHandler={setOpenPolicyWindow}
+                    />
+                    <PrivatePolicyModal
+                        openState={isOpenPolicyWindow}
+                        setOpenState={setOpenPolicyWindow}
+                        acceptAction={() => console.log('он согласен')}
+                        declineAction={() => console.log('он НЕ согласен')}
+                    />
+
+        </Fragment>
     );
 }
 
-export default ExampleForm;
+export default ApplicantForm;
