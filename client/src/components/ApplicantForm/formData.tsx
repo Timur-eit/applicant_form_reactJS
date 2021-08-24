@@ -7,6 +7,10 @@ interface IInputData {
     label: React.ReactElement<string> | string,
     type: string,
     required: boolean,
+    options?: Array<{
+        labelName: string,
+        value: string,
+    }>
 }
 
 interface IFormBlockData {
@@ -36,7 +40,7 @@ export const formBlocks: IFormBlockData = {
             {
                 name: 'email',
                 label: <p>Электронная почта<sup>*</sup></p>,
-                type: 'text',
+                type: 'email',
                 required: true,
             },
             {
@@ -50,6 +54,10 @@ export const formBlocks: IFormBlockData = {
                 label: <p>Пол<sup>*</sup></p>,
                 type: 'radio',
                 required: true,
+                options: [
+                    {labelName: 'Мужчина', value: 'male'},
+                    {labelName: 'Женщина', value: 'female'}
+                ]
             }
         ]
     }

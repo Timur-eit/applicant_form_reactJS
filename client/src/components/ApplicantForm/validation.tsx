@@ -9,6 +9,9 @@ function validate(values: Inputs): IError {
     if(!values.firstName) {
         error.firstName = 'firstName is required';
     }
+    if(!values.file) {
+        error.file = 'FILE is required';
+    }
     if(!values.lastName) {
         error.lastName = 'lastName is required';
     }

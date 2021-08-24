@@ -10,14 +10,6 @@ import RadioInput from 'components/RadioInput'
 
 import { formBlocks } from './formData';
 
-// const inputs  = formBlocks.privateData.inputs;
-// const defaultInputValues = inputs.reduce((prev: any, curr) => {
-//     if (curr.name !in prev) {
-//         prev[curr.name] = curr.defaultValue
-//     }
-//     return prev;
-// }, {})
-
 export interface Inputs {
     firstName: string,
     lastName: string,
@@ -69,37 +61,76 @@ function ApplicantForm(props: IApplicantFormProps) {
         >
             {
                 ({setFieldValue, errors, touched}) => <Form>
-                    {/* <label>
-                        Имя
-                        <Field name="firstName" />
-                        {touched.firstName && errors.firstName && <span>{errors.firstName}</span>}
-                    </label> */}
+                    <div className='private-data'>
+                        {formBlocks.privateData.inputs.map((input, i) => {                            
+                             if (input.type === 'file') {
+                                return (
+                                    <div key={`${input}_${i}`}>
+                                        <FileInput
+                                            labelName={input.label}
+                                            inputName={input.name}
+                                            setFieldValue={setFieldValue}                                            
+                                            touched={touched}
+                                            errors={errors}
+                                        />
+                                    </div>
+                                )
+                            } else if (input.type === 'radio') {
+                                return (
+                                    <div key={`${input}_${i}`}>
+                                        <RadioInput
+                                            inputName={input.name}
+                                            generalLabelName={input.name}
+                                            FormikConnectorTag={Field}
+                                            radioInputData={input.options ? input.options: []}
+                                            touched={touched}
+                                            errors={errors}
+                                        />
+                                    </div>
+                                )
+                            } else {                                
+                                return (
+                                    <div key={`${input}_${i}`}>
+                                        <TextInput
+                                            FormikConnectorTag={Field}
+                                            inputName={input.name}
+                                            labelName={input.label}
+                                            touched={touched}
+                                            errors={errors}
+                                        />
+                                    </div>
+                                )
+                            }
+                        })}
+                    </div>
 
+
+{/* 
                     <TextInput
                         FormikConnectorTag={Field}
                         inputName={'firstName'}
                         labelName={'Имя'}
                         touched={touched}
                         errors={errors}
-                    />
+                    /> */}
 
-                    <label>
+                    {/* <label>
                         Фамилия
                         <Field name="lastName" />
                         {touched.lastName && errors.lastName && <span>{errors.lastName}</span>}
-                    </label>
+                    </label> */}
 
-                    <label>
+                    {/* <label>
                         Электронная почта
                         <Field type='email' name="email"/>
                         {touched.email && errors.email && <span>{errors.email}</span>}
-                    </label>
+                    </label> */}
 
-                    <FileInput
+                    {/* <FileInput
                         labelName={'Загрузить резюме'}
                         inputName={'file'}
                         setFieldValue={setFieldValue}
-                    />
+                    /> */}
 
                     {/* <label>
                         male
@@ -110,16 +141,17 @@ function ApplicantForm(props: IApplicantFormProps) {
                         <Field type='radio' name='gender' value="female" />
                     </label>
                     {touched.gender && errors.gender && <span>{errors.gender}</span>} */}
-                    <RadioInput
+                    {/* <RadioInput
                         inputName='gender'
                         FormikConnectorTag={Field}
+                        generalLabelName={'Пол'}
                         radioInputData={[
                             {labelName: 'Мужчина', value: 'male'},
                             {labelName: 'Женщина', value: 'female'}
                         ]}
                         touched={touched}
                         errors={errors}
-                    />
+                    /> */}
 
                     <button type='submit'>
                         Sent
