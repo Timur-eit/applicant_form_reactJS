@@ -1,10 +1,14 @@
-import {Inputs} from './ApplicantForm'
+// import {Inputs} from './formData'
+
+// interface IValues {
+//     [property: string]: string | null | boolean | FileList
+// }
 
 interface IError {
     [field : string] : string
 }
 
-function validate(values: Inputs): IError {
+function validate(values: any): IError {
     const error: IError = {};
     if(!values.firstName) {
         error.firstName = 'firstName is required';

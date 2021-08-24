@@ -1,25 +1,27 @@
 import React from 'react';
-
-export const formName = 'Анкета соискателя';
-
-interface IInputData {
+import {getAllInputsData, getInputDefaultValues} from 'shared/utils';
+export interface IInputData {
     name: string,
     label: React.ReactElement<string> | string,
     type: string,
     required: boolean,
+    defaultValue: string | null | boolean,
     options?: Array<{
         labelName: string,
         value: string,
     }>
 }
 
-interface IFormBlockData {
-    [blockName: string]: {
-        title: string,
-        inputs: IInputData[]
-    }
+interface IBlock {
+    title: string,
+    inputs: IInputData[]
 }
 
+export interface IFormBlockData {
+    [blockName: string]: IBlock
+}
+
+export const formName = 'Анкета соискателя';
 export const formBlocks: IFormBlockData = {
     privateData: {
         title: 'Личные данные',
@@ -29,12 +31,14 @@ export const formBlocks: IFormBlockData = {
                 label: <p>Имя<sup>*</sup></p>,
                 type: 'text',
                 required: true,
+                defaultValue: '',
             },
             {
                 name: 'lastName',
                 label: <p>Фамилия<sup>*</sup></p>,
                 type: 'text',
                 required: true,
+                defaultValue: '',
 
             },
             {
@@ -42,18 +46,21 @@ export const formBlocks: IFormBlockData = {
                 label: <p>Электронная почта<sup>*</sup></p>,
                 type: 'email',
                 required: true,
+                defaultValue: '',
             },
             {
                 name: 'file',
                 label: 'Загрузить резюме',
                 type: 'file',
                 required: false,
+                defaultValue: null,
             },
             {
                 name: 'gender',
                 label: <p>Пол<sup>*</sup></p>,
                 type: 'radio',
                 required: true,
+                defaultValue: '',
                 options: [
                     {labelName: 'Мужчина', value: 'male'},
                     {labelName: 'Женщина', value: 'female'}
@@ -63,3 +70,6 @@ export const formBlocks: IFormBlockData = {
     }
 }
 
+
+const allInputs = getAllInputsData(formBlocks);
+export const inputDefaultValues =  getInputDefaultValues(allInputs);
