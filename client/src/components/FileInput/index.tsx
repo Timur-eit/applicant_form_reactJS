@@ -12,7 +12,10 @@ interface IFileInputProps {
 }
 
 const FileInput: React.FC<IFileInputProps> = (props) => {
-
+    
+    const [fileReady, setFileReady] = React.useState<boolean>(false);
+    const [readyFileName, setReadyFileName] = React.useState<string | null>(null);
+    
     const {
         labelName,
         inputName,
@@ -22,10 +25,16 @@ const FileInput: React.FC<IFileInputProps> = (props) => {
         errors
     } = props;
 
+    const cancelFile = () => {
+        setFileReady(false);
+        setReadyFileName(null);
+        setFieldValue(inputName, null)
+    }
+
 
     return (
         <div className='file-input-container'>
-            <label className='file-input-label'>
+            {!fileReady && <label className='file-input-label'>
                 <input
                     name={inputName}
                     type="file"
@@ -33,12 +42,20 @@ const FileInput: React.FC<IFileInputProps> = (props) => {
                     onChange={(event: any) => {
                         const files: FileList | null = event.target.files;
                         setFieldValue(inputName, files);
+                        const fileName = files && files[0].name;                        
+                        setFileReady(true)
+                        setReadyFileName(fileName)
                     }}
                 />
-
                 <div className='file-input-label__cross'></div>
                 <p>{labelName}</p>
-            </label>
+            </label>}
+
+            {fileReady && <div>
+                <span>{readyFileName}</span>
+                <button onClick={cancelFile}>Cancel</button>
+            </div>}
+            
             {required && (touched && touched[inputName]) &&
             (errors && errors[inputName]) &&
             <span>{errors[inputName]}</span>}
