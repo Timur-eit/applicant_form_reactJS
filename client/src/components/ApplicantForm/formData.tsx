@@ -3,6 +3,7 @@ import {getAllInputsData, getInputDefaultValues} from 'shared/utils';
 export interface IInputData {
     name: string,
     label: React.ReactElement<string> | string,
+    placeholder?: string,
     type: string,
     required: boolean,
     defaultValue: string | null | boolean | Array<string>,
@@ -30,6 +31,7 @@ export const formBlocks: IFormBlockData = {
             {
                 name: 'firstName',
                 label: <p>Имя<sup>*</sup></p>,
+                placeholder: 'Имя',
                 type: 'text',
                 required: true,
                 defaultValue: '',
@@ -37,6 +39,7 @@ export const formBlocks: IFormBlockData = {
             {
                 name: 'lastName',
                 label: <p>Фамилия<sup>*</sup></p>,
+                placeholder: 'Фамилия',
                 type: 'text',
                 required: true,
                 defaultValue: '',
@@ -45,6 +48,7 @@ export const formBlocks: IFormBlockData = {
             {
                 name: 'email',
                 label: <p>Электронная почта<sup>*</sup></p>,
+                placeholder: 'Электронная почта',
                 type: 'email',
                 required: true,
                 defaultValue: '',
@@ -75,6 +79,7 @@ export const formBlocks: IFormBlockData = {
             {
                 name: 'github-link',
                 label: <p>Вставьте ссылку на Github</p>,
+                placeholder: 'Вставьте ссылку на Github',
                 type: 'text',
                 required: false,
                 defaultValue: '',

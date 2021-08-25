@@ -84,6 +84,7 @@ function ApplicantForm(props: IApplicantFormProps) {
                                             <TextInput
                                                 FormikConnectorTag={Field}
                                                 inputName={input.name}
+                                                inputPlaceholder={input.placeholder}
                                                 labelName={input.label}
                                                 required={input.required}
                                                 touched={touched}
@@ -104,6 +105,7 @@ function ApplicantForm(props: IApplicantFormProps) {
                                             FormikConnectorTag={Field}
                                             inputName={input.name}
                                             labelName={input.label}
+                                            inputPlaceholder={input.placeholder}
                                             required={input.required}
                                             touched={touched}
                                             errors={errors}
