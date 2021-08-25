@@ -1,24 +1,24 @@
 import {FieldAttributes, FormikTouched, FormikErrors} from "formik";
 
 type FormikField = FieldAttributes<any>
-interface IRadioInputProps {
+interface ICheckboxProps {
     inputName: string,
     FormikConnectorTag: FormikField,
-    generalLabelName: string,
+    generalLabelName?: string,
     required: boolean,
-    radioInputData: Array<{
-        labelName: string | React.ReactElement<string>,
+    checkboxData: Array<{
+        labelName: string | React.ReactElement<string, string | React.JSXElementConstructor<any>>,
         value: string | boolean,
     }>
     touched?: FormikTouched<any>,
     errors?: FormikErrors<any>
 }
 
-function RadioInput(props: IRadioInputProps) {
+function Checkbox(props: ICheckboxProps) {
     const {
         inputName,
         generalLabelName,
-        radioInputData,
+        checkboxData,
         required,
         FormikConnectorTag,
         touched,
@@ -27,13 +27,13 @@ function RadioInput(props: IRadioInputProps) {
     
     return (
         <label>
-            {generalLabelName}
-            {radioInputData.map((input, i) => {
+            {generalLabelName && generalLabelName}
+            {checkboxData.map((input, i) => {
                 return (
                     <label key={`${input}${i}`}>
                         {input.labelName}
                         <FormikConnectorTag 
-                            type='radio'
+                            type='checkbox'
                             name={inputName}
                             value={input.value}
                         />
@@ -47,4 +47,4 @@ function RadioInput(props: IRadioInputProps) {
     )
 }
 
-export default RadioInput;
+export default Checkbox;

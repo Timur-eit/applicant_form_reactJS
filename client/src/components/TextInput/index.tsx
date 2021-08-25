@@ -5,18 +5,29 @@ type FormikField = FieldAttributes<any>
 interface ITextInputProps {
     inputName: string,
     labelName: string | React.ReactElement<string, string | React.JSXElementConstructor<any>>,
+    required: boolean,
     FormikConnectorTag: FormikField,
-    touched: FormikTouched<any>,
-    errors: FormikErrors<any>
+    touched?: FormikTouched<any>,
+    errors?: FormikErrors<any>
 }
 
 function TextInput(props: ITextInputProps) {
-    const {inputName, labelName, FormikConnectorTag, touched, errors} = props;
+    const {
+        inputName,
+        labelName,
+        required,
+        FormikConnectorTag,
+        touched,
+        errors
+    } = props;
+
     return (
         <label>
             {labelName}
             <FormikConnectorTag name={inputName} />
-            {touched[inputName] && errors[inputName] && <span>{errors[inputName]}</span>}
+            {required && (touched && touched[inputName]) && 
+            (errors && errors[inputName]) &&
+            <span>{errors[inputName]}</span>}
         </label>
     )
 }

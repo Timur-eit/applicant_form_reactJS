@@ -6,6 +6,7 @@ import PrivatePolicyModal from 'components/PrivacyPolicyModal';
 import validate from './validation';
 import TextInput from 'components/TextInput'
 import RadioInput from 'components/RadioInput';
+import Checkbox from 'components/Checkbox';
 import { formBlocks, inputDefaultValues } from './formData';
 interface IApplicantFormProps {
     isOpenSubmitWindow: boolean,
@@ -35,15 +36,18 @@ function ApplicantForm(props: IApplicantFormProps) {
             >
                 {
                     ({setFieldValue, errors, touched}) => <Form>
+
                         <div className='private-data'>
-                            {formBlocks.privateData.inputs.map((input, i) => {                            
+                            <h2>{formBlocks.privateData.title}</h2>
+                            {formBlocks.privateData.inputs.map((input, i) => {
                                  if (input.type === 'file') {
                                     return (
                                         <div key={`${input}_${i}`}>
                                             <FileInput
                                                 labelName={input.label}
                                                 inputName={input.name}
-                                                setFieldValue={setFieldValue}                                            
+                                                setFieldValue={setFieldValue}
+                                                required={input.required}
                                                 touched={touched}
                                                 errors={errors}
                                             />
@@ -56,19 +60,21 @@ function ApplicantForm(props: IApplicantFormProps) {
                                                 inputName={input.name}
                                                 generalLabelName={input.name}
                                                 FormikConnectorTag={Field}
+                                                required={input.required}
                                                 radioInputData={input.options ? input.options: []}
                                                 touched={touched}
                                                 errors={errors}
                                             />
                                         </div>
                                     )
-                                } else {                                
+                                } else {
                                     return (
                                         <div key={`${input}_${i}`}>
                                             <TextInput
                                                 FormikConnectorTag={Field}
                                                 inputName={input.name}
                                                 labelName={input.label}
+                                                required={input.required}
                                                 touched={touched}
                                                 errors={errors}
                                             />
@@ -77,6 +83,59 @@ function ApplicantForm(props: IApplicantFormProps) {
                                 }
                             })}
                         </div>
+
+                        <div className='github-link'>
+                            <h2>{formBlocks.gitHubSection.title}</h2>
+                            {formBlocks.gitHubSection.inputs.map((input, i) => {
+                                return (
+                                    <div key={`${input}_${i}`}>
+                                        <TextInput
+                                            FormikConnectorTag={Field}
+                                            inputName={input.name}
+                                            labelName={input.label}
+                                            required={input.required}
+                                            touched={touched}
+                                            errors={errors}
+                                        />
+                                    </div>
+                                )
+                            })}
+                        </div>
+
+                        <div className='github-link'>
+                            <h2>{formBlocks.privacyPolicyCheck.title}</h2>
+                            {formBlocks.privacyPolicyCheck.inputs.map((input, i) => {
+                                return (
+                                    <div key={`${input}_${i}`}>
+                                        <Checkbox
+                                            inputName={input.name}
+                                            FormikConnectorTag={Field}
+                                            required={true}
+                                            // checkboxData={input.options ? input.options: []}
+                                            checkboxData={[{
+                                                labelName: 'Agree',
+                                                value: 'true',
+                                            }]}
+                                        />
+                                    </div>
+
+                                )
+                            })}
+                        </div>
+                        
+                        <Checkbox
+                            inputName={'CHECK'}
+                            FormikConnectorTag={Field}
+                            required={true}
+                            // checkboxData={input.options ? input.options: []}
+                            checkboxData={[{
+                                labelName: 'Agree',
+                                value: 'true',
+                            }]}
+                        />
+
+
+
                         <button type='submit'>
                             Sent
                         </button>

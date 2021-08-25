@@ -7,13 +7,13 @@ export interface IInputData {
     required: boolean,
     defaultValue: string | null | boolean,
     options?: Array<{
-        labelName: string,
-        value: string,
+        labelName: string | React.ReactElement<string>,
+        value: string | boolean,
     }>
 }
 
 interface IBlock {
-    title: string,
+    title?: string,
     inputs: IInputData[]
 }
 
@@ -65,6 +65,41 @@ export const formBlocks: IFormBlockData = {
                     {labelName: 'Мужчина', value: 'male'},
                     {labelName: 'Женщина', value: 'female'}
                 ]
+            }
+        ]
+    },
+    gitHubSection: {
+        title: 'Github',
+        inputs: [
+            {
+                name: 'github-link',
+                label: <p>Вставьте ссылку на Github</p>,
+                type: 'text',
+                required: false,
+                defaultValue: '',
+            }
+        ]
+    },
+    privacyPolicyCheck: {
+        inputs: [
+            {
+                name: 'privacy-policy-check',
+                label: '',
+                type: 'checkbox',
+                options: [
+                    {
+                        labelName: (
+                            <p>
+                                <sup>*</sup>
+                                Я согласен с 
+                                <a href={'/'} target={'_blank'} rel="noreferrer">политикой конфиденциальности</a>
+                            </p>
+                            ),
+                        value: 'true'
+                    },
+                ],
+                required: true,
+                defaultValue: 'false',
             }
         ]
     }
