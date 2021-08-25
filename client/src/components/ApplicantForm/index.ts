@@ -7,13 +7,23 @@ import {
     isOpenSubmitWindowSelector,
     setOpenSubmitWindow,
     isOpenPolicyWindowSelector,
-    setOpenPolicyWindow,    
+    setOpenPolicyWindow,   
+    
+    isPrivatePolicyCheckedSelector,
+    setPrivatePolicyChecked,
+
+    checkedValuesSelector,
+    setCheckedValues,
 } from '../../ducks/applicatForm'
 
 export default connect((state: IStore<IReducerRecord>) => ({
     isOpenSubmitWindow: isOpenSubmitWindowSelector(state),   
     isOpenPolicyWindow: isOpenPolicyWindowSelector(state),   
+    isPrivatePolicyChecked: isPrivatePolicyCheckedSelector(state),
+    checkedValues: checkedValuesSelector(state),
 }), {
     setOpenSubmitWindow,
-    setOpenPolicyWindow
+    setOpenPolicyWindow,
+    setPrivatePolicyChecked,
+    setCheckedValues
 })(ApplicantForm)

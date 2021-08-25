@@ -23,3 +23,27 @@ export const getInputDefaultValues = (inputs: Array<IInputData>): IDefaultInputV
         return prev;
     }, {})
 }
+
+export function acceptPrivacyPolicy(
+                                        checkBoxValue: string,
+                                        currentState: string[],
+                                        setState: (value: string) => string[]
+                                        ): void {
+    if (currentState.includes(checkBoxValue)) {        
+        return
+    } else {
+        setState(checkBoxValue)
+    }
+}
+
+export function declinePrivacyPolicy(
+                                        checkBoxValue: string,
+                                        currentState: string[],
+                                        setState: (value: string) => string[]
+                                        ): void {
+    if (!currentState.includes(checkBoxValue)) {    
+        return
+    } else {
+        setState(checkBoxValue)
+    }
+}

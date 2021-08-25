@@ -5,10 +5,11 @@ export interface IInputData {
     label: React.ReactElement<string> | string,
     type: string,
     required: boolean,
-    defaultValue: string | null | boolean,
+    defaultValue: string | null | boolean | Array<string>,
     options?: Array<{
-        labelName: string | React.ReactElement<string>,
-        value: string | boolean,
+        labelName: string | React.ReactElement<string, string | React.JSXElementConstructor<any>>,
+        link?: string | React.ReactElement<string, string | React.JSXElementConstructor<any>>,
+        value: string,
     }>
 }
 
@@ -80,29 +81,24 @@ export const formBlocks: IFormBlockData = {
             }
         ]
     },
-    // privacyPolicyCheck: {
-    //     inputs: [
-    //         {
-    //             name: 'privacy-policy-check',
-    //             label: '',
-    //             type: 'checkbox',
-    //             options: [
-    //                 {
-    //                     labelName: (
-    //                         <p>
-    //                             <sup>*</sup>
-    //                             Я согласен с 
-    //                             <a href={'/'} target={'_blank'} rel="noreferrer">политикой конфиденциальности</a>
-    //                         </p>
-    //                         ),
-    //                     value: 'true'
-    //                 },
-    //             ],
-    //             required: true,
-    //             defaultValue: 'false',
-    //         }
-    //     ]
-    // }
+    privacyPolicyCheck: {
+        inputs: [
+            {
+                name: 'privacyPolicyCheck',
+                label: '',
+                type: 'checkbox',
+                options: [
+                    {
+                        labelName: <><sup>*</sup>Я согласен с </>,
+                        link: 'политикой конфиденциальности',
+                        value: 'agree'
+                    },
+                ],
+                required: true,
+                defaultValue: [''],
+            }
+        ]
+    }
 }
 
 

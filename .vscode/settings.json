@@ -1,18 +1,27 @@
 {
     "cSpell.ignoreWords": [
+        "agree",
         "antd",
         "applicant",
         "applicat",
+        "boxes",
         "centered",
+        "check",
+        "checkbox",
+        "checkboxes",
+        "cheked",
         "client",
         "combine",
         "decline",
+        "ducks",
         "form",
         "formik",
         "gender",
         "hanlder",
         "is",
         "reducers",
+        "set",
+        "state",
         "submit",
         "successful"
     ]

@@ -8,11 +8,20 @@ import TextInput from 'components/TextInput'
 import RadioInput from 'components/RadioInput';
 import Checkbox from 'components/Checkbox';
 import { formBlocks, inputDefaultValues } from './formData';
+
+import {acceptPrivacyPolicy, declinePrivacyPolicy} from 'shared/utils'
+
 interface IApplicantFormProps {
     isOpenSubmitWindow: boolean,
     isOpenPolicyWindow: boolean,
     setOpenSubmitWindow: (state: boolean) => void,
     setOpenPolicyWindow: (state: boolean) => void,
+    setPrivatePolicyChecked: (state: boolean) => void,
+    
+    isPrivatePolicyChecked?: any
+
+    checkedValues?: any,
+    setCheckedValues?: any,
 }
 
 function ApplicantForm(props: IApplicantFormProps) {
@@ -20,7 +29,13 @@ function ApplicantForm(props: IApplicantFormProps) {
         isOpenSubmitWindow,
         isOpenPolicyWindow,
         setOpenSubmitWindow,
-        setOpenPolicyWindow
+        setOpenPolicyWindow,
+        setPrivatePolicyChecked,
+
+        // isPrivatePolicyChecked,
+
+        checkedValues,
+        setCheckedValues,
     } = props;
 
     return (
@@ -102,7 +117,7 @@ function ApplicantForm(props: IApplicantFormProps) {
                             })}
                         </div>
 
-                        {/* <div className='github-link'>
+                        <div className='github-link'>
                             <h2>{formBlocks.privacyPolicyCheck.title}</h2>
                             {formBlocks.privacyPolicyCheck.inputs.map((input, i) => {
                                 return (
@@ -111,48 +126,38 @@ function ApplicantForm(props: IApplicantFormProps) {
                                             inputName={input.name}
                                             FormikConnectorTag={Field}
                                             required={true}
-                                            // checkboxData={input.options ? input.options: []}
-                                            checkboxData={[{
-                                                labelName: 'Agree',
-                                                value: 'true',
-                                            }]}
+                                            checkboxData={input.options ? input.options: []}
+                                            externalAction={setOpenPolicyWindow}
+                                            isChecked={checkedValues}
+                                            setChecked={setCheckedValues}
                                         />
                                     </div>
 
                                 )
                             })}
-                        </div> */}
+                        </div>
+
                         
-                        <Checkbox
-                            inputName={'CHECK'}
-                            FormikConnectorTag={Field}
-                            required={false}
-                            // checkboxData={input.options ? input.options: []}
-                            checkboxData={[{
-                                labelName: 'Agree',
-                                value: 'agree',
-                            }]}
-                        />
-
-
 
                         <button type='submit'>
                             Sent
                         </button>
                     </Form>
+                    
                 }
             </Formik>
+            <button onClick={() => setPrivatePolicyChecked(true)}>Set check</button>
             <SubmitModal
                 userName={'NAME'}
                 openState={isOpenSubmitWindow}
                 setOpenState={setOpenSubmitWindow}
-                additionalStateHandler={setOpenPolicyWindow}
+                // additionalStateHandler={setOpenPolicyWindow}
             />
             <PrivatePolicyModal
                 openState={isOpenPolicyWindow}
                 setOpenState={setOpenPolicyWindow}
-                acceptAction={() => console.log('он согласен')}
-                declineAction={() => console.log('он НЕ согласен')}
+                acceptAction={() => acceptPrivacyPolicy('agree', checkedValues, setCheckedValues)}
+                declineAction={() => declinePrivacyPolicy('agree', checkedValues, setCheckedValues)}
             />
         </Fragment>
     );

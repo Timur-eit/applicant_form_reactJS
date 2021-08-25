@@ -5,7 +5,7 @@ export interface ISubmitModalProps {
     userName: string,
     openState: boolean,
     setOpenState: (state: boolean) => void,
-    additionalStateHandler: (state: boolean) => void,
+    // additionalStateHandler: (state: boolean) => void,
 }
 
 function SubmitModal (props: ISubmitModalProps) {
@@ -13,7 +13,7 @@ function SubmitModal (props: ISubmitModalProps) {
         userName,
         openState,
         setOpenState,
-        additionalStateHandler,
+        // additionalStateHandler,
     } = props;
 
     return (
@@ -22,7 +22,7 @@ function SubmitModal (props: ISubmitModalProps) {
             declineButton={false}
             openState={openState}
             setOpenState={setOpenState}
-            additionalStateHandler={additionalStateHandler}
+            // additionalStateHandler={additionalStateHandler}
         />
     )
 }
