@@ -8,7 +8,7 @@ interface ICheckboxProps {
     required: boolean,
     checkboxData: Array<{
         labelName: string | React.ReactElement<string, string | React.JSXElementConstructor<any>>,
-        value: string | boolean,
+        value: string,
     }>
     touched?: FormikTouched<any>,
     errors?: FormikErrors<any>
@@ -24,15 +24,15 @@ function Checkbox(props: ICheckboxProps) {
         touched,
         errors
     }= props;
-    
+
     return (
         <label>
             {generalLabelName && generalLabelName}
             {checkboxData.map((input, i) => {
                 return (
-                    <label key={`${input}${i}`}>
+                    <label key={`${'input'}${'i'}`}>
                         {input.labelName}
-                        <FormikConnectorTag 
+                        <FormikConnectorTag
                             type='checkbox'
                             name={inputName}
                             value={input.value}

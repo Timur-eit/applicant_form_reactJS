@@ -102,7 +102,7 @@ function ApplicantForm(props: IApplicantFormProps) {
                             })}
                         </div>
 
-                        <div className='github-link'>
+                        {/* <div className='github-link'>
                             <h2>{formBlocks.privacyPolicyCheck.title}</h2>
                             {formBlocks.privacyPolicyCheck.inputs.map((input, i) => {
                                 return (
@@ -121,16 +121,16 @@ function ApplicantForm(props: IApplicantFormProps) {
 
                                 )
                             })}
-                        </div>
+                        </div> */}
                         
                         <Checkbox
                             inputName={'CHECK'}
                             FormikConnectorTag={Field}
-                            required={true}
+                            required={false}
                             // checkboxData={input.options ? input.options: []}
                             checkboxData={[{
                                 labelName: 'Agree',
-                                value: 'true',
+                                value: 'agree',
                             }]}
                         />
 

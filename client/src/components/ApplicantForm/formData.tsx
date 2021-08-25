@@ -80,29 +80,29 @@ export const formBlocks: IFormBlockData = {
             }
         ]
     },
-    privacyPolicyCheck: {
-        inputs: [
-            {
-                name: 'privacy-policy-check',
-                label: '',
-                type: 'checkbox',
-                options: [
-                    {
-                        labelName: (
-                            <p>
-                                <sup>*</sup>
-                                Я согласен с 
-                                <a href={'/'} target={'_blank'} rel="noreferrer">политикой конфиденциальности</a>
-                            </p>
-                            ),
-                        value: 'true'
-                    },
-                ],
-                required: true,
-                defaultValue: 'false',
-            }
-        ]
-    }
+    // privacyPolicyCheck: {
+    //     inputs: [
+    //         {
+    //             name: 'privacy-policy-check',
+    //             label: '',
+    //             type: 'checkbox',
+    //             options: [
+    //                 {
+    //                     labelName: (
+    //                         <p>
+    //                             <sup>*</sup>
+    //                             Я согласен с 
+    //                             <a href={'/'} target={'_blank'} rel="noreferrer">политикой конфиденциальности</a>
+    //                         </p>
+    //                         ),
+    //                     value: 'true'
+    //                 },
+    //             ],
+    //             required: true,
+    //             defaultValue: 'false',
+    //         }
+    //     ]
+    // }
 }
 
 
