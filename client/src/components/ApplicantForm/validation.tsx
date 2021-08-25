@@ -1,20 +1,11 @@
-// import {Inputs} from './formData'
-
-// interface IValues {
-//     [property: string]: string | null | boolean | FileList
-// }
-
 interface IError {
     [field : string] : string
 }
 
-function validate(values: any): IError {
+function validate(values: any, unblockSubmit?: (state: boolean) => void): IError {
     const error: IError = {};
     if(!values.firstName) {
         error.firstName = 'firstName is required';
-    }
-    if(!values.file) {
-        error.file = 'FILE is required';
     }
     if(!values.lastName) {
         error.lastName = 'lastName is required';
@@ -27,6 +18,17 @@ function validate(values: any): IError {
     if(!values.gender) {
         error.gender = 'Укажите пол';
     }
+    if(values.privacyPolicy.length === 0) {
+        error.privacyPolicy = 'Необходимо принять условия';
+    }
+
+    if (Object.keys(error).length === 0) {
+        unblockSubmit && unblockSubmit(true);
+    } else {
+        unblockSubmit && unblockSubmit(false);
+    }
+
+    console.log(error)
     return error;
 }
 

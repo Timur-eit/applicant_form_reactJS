@@ -84,7 +84,7 @@ export const formBlocks: IFormBlockData = {
     privacyPolicyCheck: {
         inputs: [
             {
-                name: 'privacyPolicyCheck',
+                name: 'privacyPolicy',
                 label: '',
                 type: 'checkbox',
                 options: [
@@ -95,7 +95,7 @@ export const formBlocks: IFormBlockData = {
                     },
                 ],
                 required: true,
-                defaultValue: [''],
+                defaultValue: '',
             }
         ]
     }

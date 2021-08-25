@@ -16,12 +16,10 @@ interface IApplicantFormProps {
     isOpenPolicyWindow: boolean,
     setOpenSubmitWindow: (state: boolean) => void,
     setOpenPolicyWindow: (state: boolean) => void,
-    setPrivatePolicyChecked: (state: boolean) => void,
-    
-    isPrivatePolicyChecked?: any
-
-    checkedValues?: any,
-    setCheckedValues?: any,
+    checkedValues: string[],
+    setCheckedValues: (value: string) => void,
+    isSubmitAvailable: boolean,
+    setSubmitAvailable: (state: boolean) => void
 }
 
 function ApplicantForm(props: IApplicantFormProps) {
@@ -30,12 +28,10 @@ function ApplicantForm(props: IApplicantFormProps) {
         isOpenPolicyWindow,
         setOpenSubmitWindow,
         setOpenPolicyWindow,
-        setPrivatePolicyChecked,
-
-        // isPrivatePolicyChecked,
-
         checkedValues,
         setCheckedValues,
+        isSubmitAvailable,
+        setSubmitAvailable,
     } = props;
 
     return (
@@ -47,7 +43,7 @@ function ApplicantForm(props: IApplicantFormProps) {
                     setOpenSubmitWindow(true)
                     resetForm()
                 }}
-                validate={validate}
+                validate={(values) => validate(values, setSubmitAvailable)}
             >
                 {
                     ({setFieldValue, errors, touched}) => <Form>
@@ -125,11 +121,13 @@ function ApplicantForm(props: IApplicantFormProps) {
                                         <Checkbox
                                             inputName={input.name}
                                             FormikConnectorTag={Field}
-                                            required={true}
+                                            required={input.required}
+                                            touched={touched}
+                                            errors={errors}
                                             checkboxData={input.options ? input.options: []}
                                             externalAction={setOpenPolicyWindow}
                                             isChecked={checkedValues}
-                                            setChecked={setCheckedValues}
+                                            setChecked={setCheckedValues}                                            
                                         />
                                     </div>
 
@@ -137,16 +135,15 @@ function ApplicantForm(props: IApplicantFormProps) {
                             })}
                         </div>
 
-                        
 
-                        <button type='submit'>
+
+                        <button type='submit' disabled={!isSubmitAvailable}>
                             Sent
                         </button>
                     </Form>
-                    
+
                 }
             </Formik>
-            <button onClick={() => setPrivatePolicyChecked(true)}>Set check</button>
             <SubmitModal
                 userName={'NAME'}
                 openState={isOpenSubmitWindow}

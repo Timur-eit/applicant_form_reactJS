@@ -25,10 +25,10 @@ export const getInputDefaultValues = (inputs: Array<IInputData>): IDefaultInputV
 }
 
 export function acceptPrivacyPolicy(
-                                        checkBoxValue: string,
-                                        currentState: string[],
-                                        setState: (value: string) => string[]
-                                        ): void {
+                                    checkBoxValue: string,
+                                    currentState: string[],
+                                    setState: (value: string) => void
+                                    ): void {
     if (currentState.includes(checkBoxValue)) {        
         return
     } else {
@@ -37,10 +37,10 @@ export function acceptPrivacyPolicy(
 }
 
 export function declinePrivacyPolicy(
-                                        checkBoxValue: string,
-                                        currentState: string[],
-                                        setState: (value: string) => string[]
-                                        ): void {
+                                    checkBoxValue: string,
+                                    currentState: string[],
+                                    setState: (value: string) => void
+                                    ): void {
     if (!currentState.includes(checkBoxValue)) {    
         return
     } else {

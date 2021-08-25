@@ -25,7 +25,7 @@ function TextInput(props: ITextInputProps) {
         <label>
             {labelName}
             <FormikConnectorTag name={inputName} />
-            {required && (touched && touched[inputName]) && 
+            {required && (touched && touched[inputName]) &&
             (errors && errors[inputName]) &&
             <span>{errors[inputName]}</span>}
         </label>
