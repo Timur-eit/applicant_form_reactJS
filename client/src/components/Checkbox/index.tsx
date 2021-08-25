@@ -18,6 +18,7 @@ interface ICheckboxProps {
     externalAction?: (state: boolean) => void
     isChecked: string[],
     setChecked: (value: string) => void,
+    setFieldValue: (inputName: string, value: any) => void,
 }
 
 function Checkbox(props: ICheckboxProps) {
@@ -32,6 +33,7 @@ function Checkbox(props: ICheckboxProps) {
         externalAction,
         isChecked,
         setChecked,
+        // setFieldValue,
     }= props;
 
     return (
@@ -44,7 +46,7 @@ function Checkbox(props: ICheckboxProps) {
                             externalAction && externalAction(true);
                         }}>{input.link}</span>}</p>
                         <FormikConnectorTag
-                            type='checkbox'                            
+                            type='checkbox'
                             name={inputName}
                             value={input.value}
                             checked={isChecked.includes(input.value)}

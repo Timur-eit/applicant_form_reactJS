@@ -59,7 +59,7 @@ function ApplicantForm(props: IApplicantFormProps) {
                                                 labelName={input.label}
                                                 inputName={input.name}
                                                 setFieldValue={setFieldValue}
-                                                required={true}                                                
+                                                required={true}
                                                 errors={errors}
                                             />
                                         </div>
@@ -115,7 +115,7 @@ function ApplicantForm(props: IApplicantFormProps) {
                             })}
                         </div>
 
-                        <div className='github-link'>
+                        <div className='privacy-policy'>
                             <h2>{formBlocks.privacyPolicyCheck.title}</h2>
                             {formBlocks.privacyPolicyCheck.inputs.map((input, i) => {
                                 return (
@@ -129,7 +129,8 @@ function ApplicantForm(props: IApplicantFormProps) {
                                             checkboxData={input.options ? input.options: []}
                                             externalAction={setOpenPolicyWindow}
                                             isChecked={checkedValues}
-                                            setChecked={setCheckedValues}                                            
+                                            setChecked={setCheckedValues}
+                                            setFieldValue={setFieldValue}
                                         />
                                     </div>
 
@@ -142,22 +143,30 @@ function ApplicantForm(props: IApplicantFormProps) {
                         <button type='submit' disabled={!isSubmitAvailable}>
                             Sent
                         </button>
+
+                        <SubmitModal
+                            userName={'NAME'}
+                            openState={isOpenSubmitWindow}
+                            setOpenState={setOpenSubmitWindow}
+                            // additionalStateHandler={setOpenPolicyWindow}
+                        />
+                        <PrivatePolicyModal
+                            openState={isOpenPolicyWindow}
+                            setOpenState={setOpenPolicyWindow}
+                            acceptAction={() => {
+                                acceptPrivacyPolicy('agree', checkedValues, setCheckedValues);
+                                setFieldValue('privacyPolicy', 'agree')
+                            }}
+                            declineAction={() => {
+                                declinePrivacyPolicy('agree', checkedValues, setCheckedValues)
+                                setFieldValue('privacyPolicy', '')
+                            }}
+                        />
                     </Form>
 
                 }
+                
             </Formik>
-            <SubmitModal
-                userName={'NAME'}
-                openState={isOpenSubmitWindow}
-                setOpenState={setOpenSubmitWindow}
-                // additionalStateHandler={setOpenPolicyWindow}
-            />
-            <PrivatePolicyModal
-                openState={isOpenPolicyWindow}
-                setOpenState={setOpenPolicyWindow}
-                acceptAction={() => acceptPrivacyPolicy('agree', checkedValues, setCheckedValues)}
-                declineAction={() => declinePrivacyPolicy('agree', checkedValues, setCheckedValues)}
-            />
         </div>
     );
 }
