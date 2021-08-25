@@ -15,13 +15,15 @@ function validate(values: any, unblockSubmit?: (state: boolean) => void): IError
     } else if (!(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email))) {
         error.email = "email don't match";
     }
-    if(!values.gender) {
+    if (!values.gender) {
         error.gender = 'Укажите пол';
     }
-    if(values.privacyPolicy.length === 0) {
+    if (values.privacyPolicy.length === 0) {
         error.privacyPolicy = 'Необходимо принять условия';
     }
-
+    if (values.file && values.file[0].size > 15728640) {
+        error.file = 'загрузите файл размером не больше 15мб';
+    }
     if (Object.keys(error).length === 0) {
         unblockSubmit && unblockSubmit(true);
     } else {

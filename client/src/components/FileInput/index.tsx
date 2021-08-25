@@ -1,6 +1,7 @@
 import React from 'react';
 import {FormikTouched, FormikErrors} from "formik";
 import './style.scss'
+import fileReadyImg from './img/file_ready.svg'
 
 interface IFileInputProps {
     labelName: string | React.ReactElement<string, string | React.JSXElementConstructor<any>>,
@@ -12,16 +13,14 @@ interface IFileInputProps {
 }
 
 const FileInput: React.FC<IFileInputProps> = (props) => {
-    
     const [fileReady, setFileReady] = React.useState<boolean>(false);
     const [readyFileName, setReadyFileName] = React.useState<string | null>(null);
-    
+
     const {
         labelName,
         inputName,
         setFieldValue,
         required,
-        touched,
         errors
     } = props;
 
@@ -33,8 +32,8 @@ const FileInput: React.FC<IFileInputProps> = (props) => {
 
 
     return (
-        <div className='file-input-container'>
-            {!fileReady && <label className='file-input-label'>
+        <div className='file-container'>
+            {!fileReady && <label className='file-label'>
                 <input
                     name={inputName}
                     type="file"
@@ -42,22 +41,22 @@ const FileInput: React.FC<IFileInputProps> = (props) => {
                     onChange={(event: any) => {
                         const files: FileList | null = event.target.files;
                         setFieldValue(inputName, files);
-                        const fileName = files && files[0].name;                        
+                        const fileName = files && files[0].name;
                         setFileReady(true)
                         setReadyFileName(fileName)
                     }}
                 />
-                <div className='file-input-label__cross'></div>
+                <div className='file-label__cross'></div>
                 <p>{labelName}</p>
             </label>}
 
-            {fileReady && <div>
+            {fileReady && <div className='file-ready'>
+                <img src={fileReadyImg} alt={'file uploaded to browser'} />
                 <span>{readyFileName}</span>
-                <button onClick={cancelFile}>Cancel</button>
+                <div className='deactivate-btn' onClick={cancelFile}></div>
             </div>}
-            
-            {required && (touched && touched[inputName]) &&
-            (errors && errors[inputName]) &&
+
+            {required && (errors && errors[inputName]) &&
             <span>{errors[inputName]}</span>}
         </div>
     )

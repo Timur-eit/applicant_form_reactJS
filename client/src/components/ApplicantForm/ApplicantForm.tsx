@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+// import React from 'react';
 import FileInput from 'components/FileInput';
 import {Formik, Field, Form } from "formik";
 import SubmitModal from 'components/SubmitModal';
@@ -10,6 +10,7 @@ import Checkbox from 'components/Checkbox';
 import { formBlocks, inputDefaultValues } from './formData';
 
 import {acceptPrivacyPolicy, declinePrivacyPolicy} from 'shared/utils'
+import './style.scss'
 
 interface IApplicantFormProps {
     isOpenSubmitWindow: boolean,
@@ -35,7 +36,7 @@ function ApplicantForm(props: IApplicantFormProps) {
     } = props;
 
     return (
-        <Fragment>
+        <div className='form-container'>
             <Formik
                 initialValues={inputDefaultValues}
                 onSubmit={(values, {resetForm}) => {
@@ -58,8 +59,7 @@ function ApplicantForm(props: IApplicantFormProps) {
                                                 labelName={input.label}
                                                 inputName={input.name}
                                                 setFieldValue={setFieldValue}
-                                                required={input.required}
-                                                touched={touched}
+                                                required={true}                                                
                                                 errors={errors}
                                             />
                                         </div>
@@ -158,7 +158,7 @@ function ApplicantForm(props: IApplicantFormProps) {
                 acceptAction={() => acceptPrivacyPolicy('agree', checkedValues, setCheckedValues)}
                 declineAction={() => declinePrivacyPolicy('agree', checkedValues, setCheckedValues)}
             />
-        </Fragment>
+        </div>
     );
 }
 

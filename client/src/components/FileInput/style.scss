@@ -1,16 +1,19 @@
-.file-input-container {
+@import 'shared/diactivate_button';
+@import 'shared/colors';
+
+.file-container {
     input {
         display: none;
     }
 
-    .file-input-label {
+    .file-label {
         background-color: grey;
         position: relative;
         width: 100%;
-        .file-input-label__cross {
+        .file-label__cross {
             position: absolute;
-            &.file-input-label__cross:before,
-            &.file-input-label__cross:after {
+            &.file-label__cross:before,
+            &.file-label__cross:after {
                 content: "";
                 position: absolute;
                 top: 0;
@@ -19,10 +22,52 @@
                 height: 2px;
                 background: black;
             }
-            &.file-input-label__cross:before {
+            &.file-label__cross:before {
                 transform: rotate(-90deg);
             }
         }
+    }
+
+    .file-ready {
+        height: 22px;
+        position: relative;
+        background-color: $secondary;
+        display: flex;
+        align-items: center;
+        margin: 1em 0;
+        img {
+            margin: 0 1em;
+            padding: 0.2em;
+            // width: 10px;
+            // height: 10px;
+        }
+        span {
+            color: $primary;            
+        }
+        
+        .deactivate-btn {            
+            top: 25%;
+            left: 58%;
+            width: 14px;
+            height: 14px;
+            
+            &.deactivate-btn:before,
+            &.deactivate-btn:after {
+                width: 15px;
+                background: #8C8C8C;
+                top: 0;
+                left: 0;
+            }
+            &.deactivate-btn:before {
+                transform: rotate(50deg);
+            }
+            &.deactivate-btn:after {
+              transform: rotate(-50deg);
+            }
+
+        }
+
+
     }
 
 
