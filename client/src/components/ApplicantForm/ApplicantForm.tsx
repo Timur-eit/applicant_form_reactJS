@@ -10,7 +10,11 @@ import Checkbox from 'components/Checkbox';
 import { formName, formBlocks, inputDefaultValues } from './formData';
 
 import {acceptPrivacyPolicy, declinePrivacyPolicy} from 'shared/utils'
-import './style.scss'
+import './style.scss';
+
+import { Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 interface IApplicantFormProps {
     isOpenSubmitWindow: boolean,
@@ -139,11 +143,10 @@ function ApplicantForm(props: IApplicantFormProps) {
                             })}
                         </div>
 
+                        <Button className='submit-button' type='submit' disabled={!isSubmitAvailable}>
+                            Отправить
+                        </Button>
 
-
-                        <button type='submit' disabled={!isSubmitAvailable}>
-                            Sent
-                        </button>
 
                         <SubmitModal
                             userName={'NAME'}
