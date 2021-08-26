@@ -12,9 +12,9 @@ import {
     setCheckedValues,
     isSubmitAvailableSelector,
     setSubmitAvailable,
-
+    userNameSelector,
     formDataSelector,
-    getFormData
+    formDataHandler
 
 
 } from '../../ducks/applicatForm'
@@ -24,11 +24,12 @@ export default connect((state: IStore<IReducerRecord>) => ({
     isOpenPolicyWindow: isOpenPolicyWindowSelector(state),
     checkedValues: checkedValuesSelector(state),
     isSubmitAvailable: isSubmitAvailableSelector(state),
+    userName: userNameSelector(state),
     formData: formDataSelector(state),
 }), {
     setOpenSubmitWindow,
     setOpenPolicyWindow,
     setCheckedValues,
     setSubmitAvailable,
-    getFormData,
+    formDataHandler,
 })(ApplicantForm)

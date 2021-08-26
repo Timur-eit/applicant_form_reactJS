@@ -5,7 +5,7 @@ import './style.scss';
 import {IModalData} from 'shared/interfaces'
 
 export interface IModalWindowProps {
-    modalData: IModalData,
+    modalData: IModalData | null,
     declineButton: boolean,
     openState: boolean,
     setOpenState: (state: boolean) => void,
@@ -58,12 +58,12 @@ function ModalWindow(props: IModalWindowProps) {
         <Modal show={openState} onHide={onHide ? () => handleClose(): null} centered>
             <Modal.Body>
                 <div className='modal-title-block'>
-                  <Modal.Title>{modalData.title}</Modal.Title>
+                  <Modal.Title>{modalData && modalData.title}</Modal.Title>
                   {declineButton && <div onClick={() => declineHanlder()} className={'decline-btn'}></div>}
                 </div>
-                {modalData.content}
+                {modalData && modalData.content}
                 <Button variant="primary" onClick={handleClose}>
-                    {modalData.closeButtonLabel}
+                    {modalData && modalData.closeButtonLabel}
                 </Button>
             </Modal.Body>
         </Modal>

@@ -1,8 +1,7 @@
 import {createSelector} from "reselect";
 import {ThunkAction} from "redux-thunk";
 import {AnyAction} from "redux";
-// import axios from 'axios'
-
+// import axios from 'axios';
 import {IAction, IStore} from './interfaces';
 
 export const moduleName = 'applicantForm'
@@ -11,14 +10,19 @@ export const SET_OPEN_SUBMIT_WINDOW = `${moduleName}/SET_OPEN_SUBMIT_WINDOW`
 export const SET_OPEN_POLICY_WINDOW = `${moduleName}/SET_OPEN_POLICY_WINDOW`
 export const SET_CHECKED_VALUES = `${moduleName}/SET_CHECKED_VALUES`
 export const SET_SUBMIT_AVAILABLE = `${moduleName}/SET_SUBMIT_AVAILABLE`
-export const GET_FORM_DATA = `${moduleName}/GET_FORM_DATA`
+export const SET_USER_NAME = `${moduleName}/SET_USER_NAME`
+export const HANDLE_FORM_DATA = `${moduleName}/HANDLE_FORM_DATA`
+export const CATCH_ERROR = `${moduleName}/CATCH_ERROR`
+
 
 export interface IReducerRecord {
     isOpenSubmitWindow: boolean,
     isOpenPolicyWindow: boolean,
     checkedValues: Array<string>,
     isSubmitAvailable: boolean,
+    userName: string | null,
     formData: any,
+    error: string | null,
 }
 
 export const reducerRecord: IReducerRecord = {
@@ -26,7 +30,9 @@ export const reducerRecord: IReducerRecord = {
     isOpenPolicyWindow: false,
     checkedValues: [],
     isSubmitAvailable: false,
+    userName: null,
     formData: {},
+    error: null,
 };
 
 export default function reducer(state = reducerRecord, action: IAction) {
@@ -49,9 +55,17 @@ export default function reducer(state = reducerRecord, action: IAction) {
             return Object.assign({}, state, {
                 isSubmitAvailable: payload,
             })
-        case GET_FORM_DATA:
+        case SET_USER_NAME:
+            return Object.assign({}, state, {
+                userName: payload,
+            })
+        case HANDLE_FORM_DATA:
             return Object.assign({}, state, {
                 formData: payload,
+            })
+        case CATCH_ERROR:
+            return Object.assign({}, state, {
+                error: payload,
             })
         default:
             return state
@@ -63,6 +77,7 @@ export const isOpenSubmitWindowSelector = createSelector(stateSelector, state =>
 export const isOpenPolicyWindowSelector = createSelector(stateSelector, state => state.isOpenPolicyWindow)
 export const checkedValuesSelector = createSelector(stateSelector, state => state.checkedValues)
 export const isSubmitAvailableSelector = createSelector(stateSelector, state => state.isSubmitAvailable)
+export const userNameSelector = createSelector(stateSelector, state => state.userName)
 export const formDataSelector = createSelector(stateSelector, state => state.formData)
 
 export const setOpenSubmitWindow = (openState: boolean): ThunkAction<void, IStore<IReducerRecord>, unknown, AnyAction> => (dispatch): void => {
@@ -97,14 +112,49 @@ export const setSubmitAvailable = (submitState: boolean): ThunkAction<void, ISto
     })
 }
 
-export const getFormData = (formValues: any): ThunkAction<void, IStore<IReducerRecord>, unknown, AnyAction> => (dispatch, getState): void => {
+export const formDataHandler = (formValues: any): ThunkAction<void, IStore<IReducerRecord>, unknown, AnyAction> => async (dispatch, getState): Promise<any> => {
+        
     dispatch({
-        type: GET_FORM_DATA,
+        type: HANDLE_FORM_DATA,
         payload: formValues,
     })
 
-    const formData =  formDataSelector(getState());
-    console.log(formData);
+    const formData = formDataSelector(getState());
+    const userName = formData.firstName;
+
+    dispatch({
+        type: SET_USER_NAME,
+        payload: userName,
+    })
+
+    const dataToSend = formData
+
+    /** 
+     * TODO: there should be configuration data for further forwarding the form data to the server
+     * for example:
+     * const config: any = {
+     *  method: 'post',
+     *  url: '/',
+     *  headers: {
+     *      'Content-Type': 'application/json'
+     *  },
+     *  data : dataToSend
+     * }     
+     */  
+
+    try {
+        // await axios(config)
+        // * sending data to server
+        console.log('Данные отправлены: ', dataToSend)
+    } catch(err){
+        const error = err?.response?.data
+        console.log(error)
+        await dispatch({
+            type: CATCH_ERROR,
+            payload: error
+        })
+    }
+
 }
 
 

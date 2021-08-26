@@ -2,7 +2,7 @@ import ModalWindow from 'shared/ui/Modal';
 import getSubmitModalData from './submitModalData'
 
 export interface ISubmitModalProps {
-    userName: string,
+    userName: string | null,
     openState: boolean,
     setOpenState: (state: boolean) => void,
     // additionalStateHandler: (state: boolean) => void,
@@ -12,13 +12,14 @@ function SubmitModal (props: ISubmitModalProps) {
     const {
         userName,
         openState,
-        setOpenState,
-        // additionalStateHandler,
+        setOpenState,        
     } = props;
+
+    const submitMessage = userName ? getSubmitModalData(userName) : null;
 
     return (
         <ModalWindow
-            modalData={getSubmitModalData(userName)}
+            modalData={submitMessage}
             declineButton={false}
             openState={openState}
             setOpenState={setOpenState}

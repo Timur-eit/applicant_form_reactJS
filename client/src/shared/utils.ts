@@ -29,13 +29,13 @@ export function acceptPrivacyPolicy(
                                     checkBoxValue: string,
                                     currentState: string[],
                                     setState: (value: string) => void,
-                                    setFormikValue: (checkBoxName: string, checkBoxValue: string) => void
+                                    setFormikValue: (checkBoxName: string, checkBoxValue: string[]) => void
                                     ): void {
     if (currentState.includes(checkBoxValue)) {        
         return
     } else {
         setState(checkBoxValue);
-        setFormikValue(checkBoxName, checkBoxValue);
+        setFormikValue(checkBoxName, [checkBoxValue]);
 
     }
 }
@@ -45,11 +45,11 @@ export function declinePrivacyPolicy(
                                     checkBoxValue: string,
                                     currentState: string[],
                                     setState: (value: string) => void,
-                                    setFormikValue: (checkBoxName: string, checkBoxValue: string) => void                                    ): void {
+                                    setFormikValue: (checkBoxName: string, checkBoxValue: string[]) => void                                    ): void {
     if (!currentState.includes(checkBoxValue)) {    
         return
     } else {
         setState(checkBoxValue)
-        setFormikValue(checkBoxName, '');
+        setFormikValue(checkBoxName, ['']);
     }
 }
