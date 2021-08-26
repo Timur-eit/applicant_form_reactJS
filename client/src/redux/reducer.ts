@@ -1,4 +1,6 @@
-import {combineReducers} from "redux";
-import applicantFormReducer, {moduleName as applicantForm} from 'ducks/applicatForm';
+import { combineReducers } from "redux";
+import applicantFormReducer, {
+  moduleName as applicantForm,
+} from "ducks/applicatForm";
 
-export default combineReducers({[applicantForm] : applicantFormReducer});
+export default combineReducers({ [applicantForm]: applicantFormReducer });

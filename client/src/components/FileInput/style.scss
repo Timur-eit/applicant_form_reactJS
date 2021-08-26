@@ -1,107 +1,107 @@
-@import 'shared/styles_modules/diactivate_button';
-@import 'shared/styles_modules/colors';
-@import 'shared/styles_modules/mixines';
+@import "shared/styles_modules/diactivate_button";
+@import "shared/styles_modules/colors";
+@import "shared/styles_modules/mixines";
 
 .file-container {
-    input {
-        display: none;
-    }
+  input {
+    display: none;
+  }
 
-    .file-label {
-        background-color: $uploadButton;
-        position: relative;
-        width: 100%;
-        height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        color: $secondaryFont;
-        p {
-            margin: 0;
-        }
-        cursor: pointer;
-        .file-label__cross {
-            position: absolute;
-            left: 15%;
-            &.file-label__cross:before,
-            &.file-label__cross:after {
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 20px;
-                height: 2px;
-                background: #8C8C8C;
-            }
-            &.file-label__cross:before {
-                transform: rotate(-90deg);
-            }
-        }
-    }
-
-    .file-ready {
-        height: 22px;
-        position: relative;
-        display: flex;
-        align-items: center;
-        margin: 0.5em 0;
-        &:hover {
-            background-color: $secondary;
-            cursor: pointer;
-        }
-        img {
-            margin: 0 1em;
-            padding: 0.2em;
-            // width: 10px;
-            // height: 10px;
-        }
-        span {
-            color: $primary;
-        }
-
-        .deactivate-btn {
-            top: 50%;
-            right: 5%;
-            width: 14px;
-            height: 14px;
-            position: absolute;
-
-            &.deactivate-btn:before,
-            &.deactivate-btn:after {
-                width: 15px;
-                background: #8C8C8C;
-                top: 0;
-                left: 0;
-            }
-            &.deactivate-btn:before {
-                transform: rotate(50deg);
-            }
-            &.deactivate-btn:after {
-              transform: rotate(-50deg);
-            }
-        }
-
-        &--error {
-            span {
-                color: $errorFont;
-            }
-            &:hover {
-                background-color: inherit;
-            }
-            .deactivate-btn {
-                &.deactivate-btn:before,
-                &.deactivate-btn:after {
-                    background: $errorFont;
-                }
-            }
-        }
-    }
-
+  .file-label {
+    background-color: $uploadButton;
     position: relative;
-    .error-message {
-        @include errorMessage;
-        position: absolute;
-        top: -55%;    
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: $secondaryFont;
+    p {
+      margin: 0;
     }
+    cursor: pointer;
+    .file-label__cross {
+      position: absolute;
+      left: 15%;
+      &.file-label__cross:before,
+      &.file-label__cross:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        height: 2px;
+        background: #8c8c8c;
+      }
+      &.file-label__cross:before {
+        transform: rotate(-90deg);
+      }
+    }
+  }
+
+  .file-ready {
+    height: 22px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 0.5em 0;
+    &:hover {
+      background-color: $secondary;
+      cursor: pointer;
+    }
+    img {
+      margin: 0 1em;
+      padding: 0.2em;
+      // width: 10px;
+      // height: 10px;
+    }
+    span {
+      color: $primary;
+    }
+
+    .deactivate-btn {
+      top: 50%;
+      right: 5%;
+      width: 14px;
+      height: 14px;
+      position: absolute;
+
+      &.deactivate-btn:before,
+      &.deactivate-btn:after {
+        width: 15px;
+        background: #8c8c8c;
+        top: 0;
+        left: 0;
+      }
+      &.deactivate-btn:before {
+        transform: rotate(50deg);
+      }
+      &.deactivate-btn:after {
+        transform: rotate(-50deg);
+      }
+    }
+
+    &--error {
+      span {
+        color: $errorFont;
+      }
+      &:hover {
+        background-color: inherit;
+      }
+      .deactivate-btn {
+        &.deactivate-btn:before,
+        &.deactivate-btn:after {
+          background: $errorFont;
+        }
+      }
+    }
+  }
+
+  position: relative;
+  .error-message {
+    @include errorMessage;
+    position: absolute;
+    top: -55%;
+  }
 }

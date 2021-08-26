@@ -1,31 +1,35 @@
-@import 'shared/styles_modules/colors';
-@import 'shared/styles_modules/mixines';
+@import "shared/styles_modules/colors";
+@import "shared/styles_modules/mixines";
 
 .radio-btn-container {
-    p {margin: 0;}
-    width: 60%;
+  p {
+    margin: 0;
+  }
+  width: 60%;
 
-    .label-name {
-        p {margin: 0;}
-        display: flex;
-        align-items: center;
-        .error-message {
-            @include errorMessage;
-        }
+  .label-name {
+    p {
+      margin: 0;
     }
+    display: flex;
+    align-items: center;
+    .error-message {
+      @include errorMessage;
+    }
+  }
 
-    .radio-btn-block {
-        display: flex;
-        justify-content: space-between;
-        .radio-btn {
-            display: flex;
-            align-items: center;
-            input {
-                margin-right: 0.5em;
-            }
-            .label-name {
-                @include inputLabel;
-            }
-        }
+  .radio-btn-block {
+    display: flex;
+    justify-content: space-between;
+    .radio-btn {
+      display: flex;
+      align-items: center;
+      input {
+        margin-right: 0.5em;
+      }
+      .label-name {
+        @include inputLabel;
+      }
     }
+  }
 }

@@ -1,11 +1,8 @@
-import React from 'react';
-import ApplicantForm from 'components/ApplicantForm';
+import React from "react";
+import ApplicantForm from "components/ApplicantForm";
 
 function App() {
-    return (       
-        <ApplicantForm />
-       
-    );
+  return <ApplicantForm />;
 }
 
 export default App;

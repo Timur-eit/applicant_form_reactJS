@@ -1,27 +1,27 @@
 .deactivate-btn {
-    position: relative;
-    top: 5px;
-    right: 5px;
-    width: 55px;
-    height: 55px;
-    cursor: pointer;
+  position: relative;
+  top: 5px;
+  right: 5px;
+  width: 55px;
+  height: 55px;
+  cursor: pointer;
 
-    &.deactivate-btn:before,
-    &.deactivate-btn:after {
-      content: "";
-      position: absolute;
-      top: 21px;
-      left: 10px;
-      width: 26px;
-      height: 2px;
-      background: #0d6efd;
-    }
+  &.deactivate-btn:before,
+  &.deactivate-btn:after {
+    content: "";
+    position: absolute;
+    top: 21px;
+    left: 10px;
+    width: 26px;
+    height: 2px;
+    background: #0d6efd;
+  }
 
-    &.deactivate-btn:before {
-      transform: rotate(45deg);
-    }
+  &.deactivate-btn:before {
+    transform: rotate(45deg);
+  }
 
-    &.deactivate-btn:after {
-      transform: rotate(-45deg);
-    }
+  &.deactivate-btn:after {
+    transform: rotate(-45deg);
+  }
 }

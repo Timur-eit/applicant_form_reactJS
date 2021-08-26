@@ -1,27 +1,27 @@
 .modal {
-    padding: 1em;
+  padding: 1em;
 }
 
 .modal-dialog {
-    margin: 0 auto;
+  margin: 0 auto;
 
-    .modal-content {
-        height: 45%;
-        .modal-body {
-            .modal-title-block, button {
-                margin: 1em 0;
-            }
-            .content {
-                height: 400px; 
-                overflow: scroll;
-                padding: 2em 0;
-                > pre {
-                    hyphens: auto;
-                    overflow-wrap: break-word;
-                    white-space: pre-wrap;
-                }
-            }
+  .modal-content {
+    height: 45%;
+    .modal-body {
+      .modal-title-block,
+      button {
+        margin: 1em 0;
+      }
+      .content {
+        height: 400px;
+        overflow: scroll;
+        padding: 2em 0;
+        > pre {
+          hyphens: auto;
+          overflow-wrap: break-word;
+          white-space: pre-wrap;
         }
+      }
     }
+  }
 }
-
