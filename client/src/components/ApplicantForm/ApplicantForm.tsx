@@ -24,7 +24,8 @@ interface IApplicantFormProps {
     checkedValues: string[],
     setCheckedValues: (value: string) => void,
     isSubmitAvailable: boolean,
-    setSubmitAvailable: (state: boolean) => void
+    setSubmitAvailable: (state: boolean) => void,
+    getFormData: (formValues: any) => void,
 }
 
 function ApplicantForm(props: IApplicantFormProps) {
@@ -37,6 +38,7 @@ function ApplicantForm(props: IApplicantFormProps) {
         setCheckedValues,
         isSubmitAvailable,
         setSubmitAvailable,
+        getFormData,
     } = props;
 
     return (
@@ -45,7 +47,7 @@ function ApplicantForm(props: IApplicantFormProps) {
             <Formik
                 initialValues={inputDefaultValues}
                 onSubmit={(values, {resetForm}) => {
-                    console.log(values)
+                    getFormData(values)
                     setOpenSubmitWindow(true)
                     resetForm()
                 }}
