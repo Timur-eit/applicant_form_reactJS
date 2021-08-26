@@ -26,7 +26,11 @@
         }
     }
 
+    position: relative;
     .error-message {
-        @include errorMessage
+        @include errorMessage;
+        position: absolute;
+        top: 60%;
+        left: 5%;
     }
 }

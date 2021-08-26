@@ -6,7 +6,7 @@
     input {
         display: none;
     }
-    
+
     .file-label {
         background-color: $uploadButton;
         position: relative;
@@ -43,10 +43,13 @@
     .file-ready {
         height: 22px;
         position: relative;
-        background-color: $secondary;
         display: flex;
         align-items: center;
         margin: 0.5em 0;
+        &:hover {
+            background-color: $secondary;
+            cursor: pointer;
+        }
         img {
             margin: 0 1em;
             padding: 0.2em;
@@ -58,10 +61,11 @@
         }
 
         .deactivate-btn {
-            top: 25%;
-            left: 58%;
+            top: 50%;
+            right: 5%;
             width: 14px;
             height: 14px;
+            position: absolute;
 
             &.deactivate-btn:before,
             &.deactivate-btn:after {
@@ -78,10 +82,28 @@
             }
         }
 
+        &--error {            
+            span {
+                color: $errorFont;  
+            }            
+            &:hover {
+                background-color: inherit;
+            }            
+            .deactivate-btn {                  
+                &.deactivate-btn:before,
+                &.deactivate-btn:after {                    
+                    background: $errorFont;                    
+                }
+            }            
+        }
     }
 
+    position: relative;
     .error-message {
-        @include errorMessage;        
+        @include errorMessage;
+        position: absolute;
+        top: 85%;
+        left: 50%;
     }
 
 }

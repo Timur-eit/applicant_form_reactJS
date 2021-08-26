@@ -1,7 +1,9 @@
 import React from 'react';
 import {FormikTouched, FormikErrors} from "formik";
-import './style.scss'
-import fileReadyImg from './img/file_ready.svg'
+import './style.scss';
+import fileReadyImg from './img/file_ready.svg';
+import fileErrorImg from './img/file_error.svg';
+import classNames from 'classnames';
 
 interface IFileInputProps {
     labelName: string | React.ReactElement<string, string | React.JSXElementConstructor<any>>,
@@ -30,6 +32,14 @@ const FileInput: React.FC<IFileInputProps> = (props) => {
         setFieldValue(inputName, null)
     }
 
+    const isError = (): boolean => {
+        return (errors && errors[inputName]) ? true : false;
+    };
+
+    const fileReadyClasses = classNames({
+        'file-ready': true,
+        'file-ready--error': isError(),
+    })    
 
     return (
         <div className='file-container'>
@@ -48,16 +58,16 @@ const FileInput: React.FC<IFileInputProps> = (props) => {
                 />
                 <div className='file-label__cross'></div>
                 <p>{labelName}</p>
-            </label>}
+            </label>}        
 
-            {fileReady && <div className='file-ready'>
-                <img src={fileReadyImg} alt={'file uploaded to browser'} />
+            {fileReady && <div className={fileReadyClasses} onClick={cancelFile}>
+                <img src={!isError() ? fileReadyImg : fileErrorImg} alt={'file uploaded to browser'} />
                 <span>{readyFileName}</span>
-                <div className='deactivate-btn' onClick={cancelFile}></div>
+                <div className='deactivate-btn'></div>
             </div>}
 
-            {required && (errors && errors[inputName]) &&
-            <p className='error-message'>{errors[inputName]}</p>}
+            {required && (isError()) &&
+            <p className='error-message'>{errors && errors[inputName]}</p>}
         </div>
     )
 }

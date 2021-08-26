@@ -41,7 +41,7 @@ function Checkbox(props: ICheckboxProps) {
             <h2>{generalLabelName && generalLabelName}</h2>
             {checkboxData.map((input, i) => {
                 return (
-                    <div key={`${input}${i}`} className='checkbox'>                        
+                    <div key={`${input}${i}`} className='checkbox'>
                         <FormikConnectorTag
                             type='checkbox'
                             name={inputName}
@@ -60,7 +60,7 @@ function Checkbox(props: ICheckboxProps) {
                 (errors && errors[inputName]) &&
                 <span>{errors[inputName]}</span>}
             </p>
-            
+
         </div>
     )
 }

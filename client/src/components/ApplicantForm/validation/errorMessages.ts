@@ -23,7 +23,7 @@ const errorMessages: IErrorMessages = {
         required: 'необходимо принять условия',
     },
     file: {
-        valid: 'загрузите один файл не больше 15Мб'
+        valid: 'загружайте файл размером не более 16 mb'
     },    
 }
 
