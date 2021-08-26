@@ -45,6 +45,7 @@ function ApplicantForm(props: IApplicantFormProps) {
 
     return (
         <div className='form-container'>
+            
             <h1>{formName}</h1>
             <Formik
                 initialValues={inputDefaultValues}
@@ -60,6 +61,9 @@ function ApplicantForm(props: IApplicantFormProps) {
 
                         <div className='private-data'>
                             <h2>{formBlocks.privateData.title}</h2>
+                            
+                            <div className='private-data__fields'>                            
+                            
                             {formBlocks.privateData.inputs.map((input, i) => {
                                  if (input.type === 'file') {
                                     return (
@@ -103,6 +107,7 @@ function ApplicantForm(props: IApplicantFormProps) {
                                     )
                                 }
                             })}
+                            </div>
                         </div>
 
                         <div className='github-link'>

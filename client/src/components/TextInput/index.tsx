@@ -22,17 +22,17 @@ function TextInput(props: ITextInputProps) {
         FormikConnectorTag,
         touched,
         errors
-    } = props;    
+    } = props;
 
     return (
         <label className='text-input'>
             <div className='label-name'>
                 {labelName}
-                {required && (touched && touched[inputName]) &&
-                (errors && errors[inputName]) &&
-                <p className='error-message'>{errors[inputName]}</p>}
             </div>
-            <FormikConnectorTag name={inputName} placeholder={inputPlaceholder} />            
+            <FormikConnectorTag name={inputName} placeholder={inputPlaceholder} />
+            {required && (touched && touched[inputName]) &&
+            (errors && errors[inputName]) &&
+            <p className='error-message'>{errors[inputName]}</p>}
         </label>
     )
 }

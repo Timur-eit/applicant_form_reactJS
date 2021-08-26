@@ -39,6 +39,13 @@ function Checkbox(props: ICheckboxProps) {
     return (
         <div className='checkbox-container'>
             <h2>{generalLabelName && generalLabelName}</h2>
+            
+            <p className='error-message'>
+                {required && (touched && touched[inputName]) &&
+                (errors && errors[inputName]) &&
+                <span>{errors[inputName]}</span>}
+            </p>
+
             {checkboxData.map((input, i) => {
                 return (
                     <div key={`${input}${i}`} className='checkbox'>
@@ -55,11 +62,7 @@ function Checkbox(props: ICheckboxProps) {
                     </div>
                 )
             })}
-            <p className='error-message'>
-                {required && (touched && touched[inputName]) &&
-                (errors && errors[inputName]) &&
-                <span>{errors[inputName]}</span>}
-            </p>
+            
 
         </div>
     )

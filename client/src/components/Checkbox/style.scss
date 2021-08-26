@@ -30,7 +30,6 @@
     .error-message {
         @include errorMessage;
         position: absolute;
-        top: 60%;
-        left: 5%;
+        top: -60%;
     }
 }

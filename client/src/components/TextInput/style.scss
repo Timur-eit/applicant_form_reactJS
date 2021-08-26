@@ -14,12 +14,14 @@
             margin-left: 0.3em;
             font-weight: bold;
         }
-        position: relative;
-        .error-message {
-            position: absolute;            
-            right: 0;            
-            @include errorMessage;
-        }
+        
+    }
+   
+    position: relative;        
+    .error-message {
+        position: absolute;            
+        right: 0;            
+        @include errorMessage;
     }
 
     ::placeholder {

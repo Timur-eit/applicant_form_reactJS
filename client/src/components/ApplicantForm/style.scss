@@ -14,7 +14,7 @@
     }
 
     .submit-button {
-        background-color: $primary;        
+        background-color: $primary;
         font-weight: normal;
         font-size: 16px;
         line-height: 24px;
@@ -30,5 +30,34 @@
         flex-direction: column;
         justify-content: space-around;
     }
-    
+
+}
+
+
+@media screen and (min-width: 680px) {
+    .form-container {
+        form {
+            width: 700px;
+            // background-color: lightblue;
+            .private-data {
+                .private-data__fields {
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: baseline;
+                    > div {
+                        width: 300px;
+                        margin-right: 2em;
+                    }
+                }
+            }
+            .github-link {
+                width: 300px;
+            }
+            .submit-button {
+                width: 360px;
+            }
+        }
+    }
+
+
 }

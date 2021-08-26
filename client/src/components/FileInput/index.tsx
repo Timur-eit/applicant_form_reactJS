@@ -39,7 +39,7 @@ const FileInput: React.FC<IFileInputProps> = (props) => {
     const fileReadyClasses = classNames({
         'file-ready': true,
         'file-ready--error': isError(),
-    })    
+    })
 
     return (
         <div className='file-container'>
@@ -58,7 +58,10 @@ const FileInput: React.FC<IFileInputProps> = (props) => {
                 />
                 <div className='file-label__cross'></div>
                 <p>{labelName}</p>
-            </label>}        
+            </label>}
+
+            {required && (isError()) &&
+            <p className='error-message'>{errors && errors[inputName]}</p>}
 
             {fileReady && <div className={fileReadyClasses} onClick={cancelFile}>
                 <img src={!isError() ? fileReadyImg : fileErrorImg} alt={'file uploaded to browser'} />
@@ -66,8 +69,7 @@ const FileInput: React.FC<IFileInputProps> = (props) => {
                 <div className='deactivate-btn'></div>
             </div>}
 
-            {required && (isError()) &&
-            <p className='error-message'>{errors && errors[inputName]}</p>}
+
         </div>
     )
 }
