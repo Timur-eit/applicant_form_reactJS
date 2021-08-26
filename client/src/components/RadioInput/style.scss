@@ -3,7 +3,7 @@
 
 .radio-btn-container {
     p {margin: 0;}
-    width: 70%;
+    width: 60%;
 
     .label-name {
         p {margin: 0;}
@@ -14,8 +14,18 @@
         }
     }
 
-    .radio-btn {
+    .radio-btn-block {
         display: flex;
         justify-content: space-between;
+        .radio-btn {
+            display: flex;
+            align-items: center;
+            input {
+                margin-right: 0.5em;
+            }
+            .label-name {
+                @include inputLabel;
+            }
+        }
     }
 }

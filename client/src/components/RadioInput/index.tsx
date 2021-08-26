@@ -28,26 +28,28 @@ function RadioInput(props: IRadioInputProps) {
     }= props;
     
     return (
-        <label className='radio-btn-container'>
+        <div className='radio-btn-container'>
             <div className='label-name'>
                 <h2>{generalLabelName}</h2>
                 {required && (touched && touched[inputName]) &&
                 (errors && errors[inputName]) &&
                 <p className='error-message'>{errors[inputName]}</p>}
             </div>
-            {radioInputData.map((input, i) => {
-                return (
-                    <label className='radio-btn' key={`${input}${i}`}>
-                        {input.labelName}
-                        <FormikConnectorTag 
-                            type='radio'
-                            name={inputName}
-                            value={input.value}
-                        />
-                    </label>
-                )
-            })}            
-        </label>
+            <div className='radio-btn-block'>
+                {radioInputData.map((input, i) => {
+                    return (
+                        <label className='radio-btn' key={`${input}${i}`}>                            
+                            <FormikConnectorTag 
+                                type='radio'
+                                name={inputName}
+                                value={input.value}
+                            />
+                            <p className='label-name'>{input.labelName}</p>
+                        </label>
+                    )
+                })}
+            </div>          
+        </div>
     )
 }
 

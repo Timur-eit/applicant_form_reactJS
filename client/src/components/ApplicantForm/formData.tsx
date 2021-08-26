@@ -67,8 +67,8 @@ export const formBlocks: IFormBlockData = {
                 required: true,
                 defaultValue: '',
                 options: [
-                    {labelName: 'Мужчина', value: 'male'},
-                    {labelName: 'Женщина', value: 'female'}
+                    {labelName: 'Мужской', value: 'male'},
+                    {labelName: 'Женский', value: 'female'}
                 ]
             }
         ]

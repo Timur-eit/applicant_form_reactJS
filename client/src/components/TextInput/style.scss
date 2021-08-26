@@ -8,7 +8,7 @@
 
     .label-name {
         p {margin: 0;}
-        @include textInputLabel;
+        @include inputLabel;
         display: flex;
         sup {
             margin-left: 0.3em;
