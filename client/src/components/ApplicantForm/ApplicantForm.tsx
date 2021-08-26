@@ -3,7 +3,7 @@ import FileInput from 'components/FileInput';
 import {Formik, Field, Form } from "formik";
 import SubmitModal from 'components/SubmitModal';
 import PrivatePolicyModal from 'components/PrivacyPolicyModal';
-import validate from './validation';
+import validate from './validation/validation';
 import TextInput from 'components/TextInput'
 import RadioInput from 'components/RadioInput';
 import Checkbox from 'components/Checkbox';
@@ -148,24 +148,31 @@ function ApplicantForm(props: IApplicantFormProps) {
                             userName={'NAME'}
                             openState={isOpenSubmitWindow}
                             setOpenState={setOpenSubmitWindow}
-                            // additionalStateHandler={setOpenPolicyWindow}
                         />
                         <PrivatePolicyModal
                             openState={isOpenPolicyWindow}
                             setOpenState={setOpenPolicyWindow}
                             acceptAction={() => {
-                                acceptPrivacyPolicy('agree', checkedValues, setCheckedValues);
-                                setFieldValue('privacyPolicy', 'agree')
+                                acceptPrivacyPolicy( // * to set checkbox value remotely
+                                    'privacyPolicy',
+                                    'agree',
+                                    checkedValues,
+                                    setCheckedValues,
+                                    setFieldValue
+                                );
                             }}
                             declineAction={() => {
-                                declinePrivacyPolicy('agree', checkedValues, setCheckedValues)
-                                setFieldValue('privacyPolicy', '')
+                                declinePrivacyPolicy( // * to set checkbox value remotely
+                                    'privacyPolicy',
+                                    'agree',
+                                    checkedValues,
+                                    setCheckedValues,
+                                    setFieldValue
+                                );
                             }}
                         />
                     </Form>
-
                 }
-                
             </Formik>
         </div>
     );

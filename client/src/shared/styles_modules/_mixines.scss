@@ -1,0 +1,10 @@
+@import './colors';
+
+@mixin errorMessage {
+    color: $errorFont;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    margin: 0 0 1em 0;
+    padding: 0;
+}

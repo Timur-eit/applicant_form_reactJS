@@ -1,17 +1,29 @@
-@import 'shared/diactivate_button';
-@import 'shared/colors';
+@import 'shared/styles_modules/diactivate_button';
+@import 'shared/styles_modules/colors';
+@import 'shared/styles_modules/mixines';
 
 .file-container {
     input {
         display: none;
     }
-
+    
     .file-label {
-        background-color: grey;
+        background-color: $uploadButton;
         position: relative;
         width: 100%;
+        height: 42px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: $secondaryFont;
+        p {
+            margin: 0;
+        }
+        cursor: pointer;
         .file-label__cross {
             position: absolute;
+            left: 15%;
             &.file-label__cross:before,
             &.file-label__cross:after {
                 content: "";
@@ -20,7 +32,7 @@
                 left: 0;
                 width: 20px;
                 height: 2px;
-                background: black;
+                background: #8C8C8C;
             }
             &.file-label__cross:before {
                 transform: rotate(-90deg);
@@ -34,7 +46,7 @@
         background-color: $secondary;
         display: flex;
         align-items: center;
-        margin: 1em 0;
+        margin: 0.5em 0;
         img {
             margin: 0 1em;
             padding: 0.2em;
@@ -42,15 +54,15 @@
             // height: 10px;
         }
         span {
-            color: $primary;            
+            color: $primary;
         }
-        
-        .deactivate-btn {            
+
+        .deactivate-btn {
             top: 25%;
             left: 58%;
             width: 14px;
             height: 14px;
-            
+
             &.deactivate-btn:before,
             &.deactivate-btn:after {
                 width: 15px;
@@ -64,14 +76,12 @@
             &.deactivate-btn:after {
               transform: rotate(-50deg);
             }
-
         }
-
 
     }
 
-
-
-
+    .error-message {
+        @include errorMessage;        
+    }
 
 }

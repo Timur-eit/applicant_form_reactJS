@@ -25,25 +25,31 @@ export const getInputDefaultValues = (inputs: Array<IInputData>): IDefaultInputV
 }
 
 export function acceptPrivacyPolicy(
+                                    checkBoxName: string,
                                     checkBoxValue: string,
                                     currentState: string[],
-                                    setState: (value: string) => void
+                                    setState: (value: string) => void,
+                                    setFormikValue: (checkBoxName: string, checkBoxValue: string) => void
                                     ): void {
     if (currentState.includes(checkBoxValue)) {        
         return
     } else {
-        setState(checkBoxValue)
+        setState(checkBoxValue);
+        setFormikValue(checkBoxName, checkBoxValue);
+
     }
 }
 
 export function declinePrivacyPolicy(
+                                    checkBoxName: string,
                                     checkBoxValue: string,
                                     currentState: string[],
-                                    setState: (value: string) => void
-                                    ): void {
+                                    setState: (value: string) => void,
+                                    setFormikValue: (checkBoxName: string, checkBoxValue: string) => void                                    ): void {
     if (!currentState.includes(checkBoxValue)) {    
         return
     } else {
         setState(checkBoxValue)
+        setFormikValue(checkBoxName, '');
     }
 }

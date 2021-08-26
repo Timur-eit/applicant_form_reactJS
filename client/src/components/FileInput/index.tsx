@@ -57,7 +57,7 @@ const FileInput: React.FC<IFileInputProps> = (props) => {
             </div>}
 
             {required && (errors && errors[inputName]) &&
-            <span>{errors[inputName]}</span>}
+            <p className='error-message'>{errors[inputName]}</p>}
         </div>
     )
 }

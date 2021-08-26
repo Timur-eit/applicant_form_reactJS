@@ -1,36 +1,38 @@
+import errorMessages from './errorMessages';
+
+const MAX_FILE_SIZE = 15728640;
+
 interface IError {
-    [field : string] : string
+    [field : string] : string | undefined
 }
 
 function validate(values: any, unblockSubmit?: (state: boolean) => void): IError {
     const error: IError = {};
     if(!values.firstName) {
-        error.firstName = 'firstName is required';
+        error.firstName = errorMessages.firstName.required;
     }
     if(!values.lastName) {
-        error.lastName = 'lastName is required';
+        error.lastName = errorMessages.lastName.required;
     }
     if (!values.email) {
-        error.email = 'email is required';
+        error.email = errorMessages.email.required
     } else if (!(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email))) {
-        error.email = "email don't match";
+        error.email = errorMessages.email.valid;
     }
     if (!values.gender) {
-        error.gender = 'Укажите пол';
+        error.gender = errorMessages.gender.required;
     }
     if (values.privacyPolicy.length === 0) {
-        error.privacyPolicy = 'Необходимо принять условия';
+        error.privacyPolicy = errorMessages.privacyPolicy.required;
     }
-    if (values.file && values.file[0].size > 15728640) {
-        error.file = 'загрузите файл размером не больше 15мб';
+    if (values.file && values.file[0].size > MAX_FILE_SIZE) {
+        error.file = errorMessages.file.valid;
     }
     if (Object.keys(error).length === 0) {
         unblockSubmit && unblockSubmit(true);
     } else {
         unblockSubmit && unblockSubmit(false);
     }
-
-    console.log(error)
     return error;
 }
 
