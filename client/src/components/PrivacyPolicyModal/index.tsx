@@ -1,6 +1,7 @@
 import React from 'react'
 import ModalWindow from 'shared/ui/Modal';
 import getPolicyModalData from './privacyPolicyModalData'
+import './style.scss';
 
 export interface IPrivatePolicyModalProps {
     openState: boolean,
