@@ -26,12 +26,12 @@ function TextInput(props: ITextInputProps) {
 
     return (
         <label className='text-input'>
-            <p className='label-name'>
+            <div className='label-name'>
                 {labelName}
                 {required && (touched && touched[inputName]) &&
                 (errors && errors[inputName]) &&
                 <p className='error-message'>{errors[inputName]}</p>}
-            </p>
+            </div>
             <FormikConnectorTag name={inputName} placeholder={inputPlaceholder} />            
         </label>
     )

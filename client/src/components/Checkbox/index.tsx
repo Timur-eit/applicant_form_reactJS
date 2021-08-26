@@ -37,14 +37,11 @@ function Checkbox(props: ICheckboxProps) {
     }= props;
 
     return (
-        <div>
+        <div className='checkbox-container'>
             <h2>{generalLabelName && generalLabelName}</h2>
             {checkboxData.map((input, i) => {
                 return (
-                    <div key={`${input}${i}`} className='checkbox'>
-                        <p>{input.labelName}{input.link && <span onClick={() => {
-                            externalAction && externalAction(true);
-                        }}>{input.link}</span>}</p>
+                    <div key={`${input}${i}`} className='checkbox'>                        
                         <FormikConnectorTag
                             type='checkbox'
                             name={inputName}
@@ -52,12 +49,18 @@ function Checkbox(props: ICheckboxProps) {
                             checked={isChecked.includes(input.value)}
                             onClick={() => setChecked(input.value)}
                         />
+                        <p className='label-name'>{input.labelName}{input.link && <span onClick={() => {
+                            externalAction && externalAction(true);
+                        }}>{input.link}</span>}</p>
                     </div>
                 )
             })}
-            {required && (touched && touched[inputName]) &&
-            (errors && errors[inputName]) &&
-            <span>{errors[inputName]}</span>}
+            <p className='error-message'>
+                {required && (touched && touched[inputName]) &&
+                (errors && errors[inputName]) &&
+                <span>{errors[inputName]}</span>}
+            </p>
+            
         </div>
     )
 }

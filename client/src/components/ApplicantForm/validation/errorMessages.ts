@@ -24,7 +24,8 @@ const errorMessages: IErrorMessages = {
     },
     file: {
         valid: 'загрузите один файл не больше 15Мб'
-    }
+    },    
 }
+
 
 export default errorMessages;

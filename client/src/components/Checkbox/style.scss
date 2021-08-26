@@ -1,10 +1,32 @@
 @import 'shared/styles_modules/colors';
 @import 'shared/styles_modules/mixines';
 
-.checkbox {
-    span {
-        cursor: pointer;
-        color: blue;
-        text-decoration: underline;
+
+.checkbox-container {
+    .checkbox {
+        p {margin: 0;}
+        display: flex;
+        align-items: center;
+
+        .label-name {
+            @include inputLabel
+        }
+        sup {
+            font-weight: bold;
+        }
+
+        input {
+            margin-right: 0.5em;
+        }
+
+        span {
+            cursor: pointer;
+            color: $primary;
+            text-decoration: underline;
+        }
+    }
+
+    .error-message {
+        @include errorMessage
     }
 }

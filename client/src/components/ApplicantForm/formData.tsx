@@ -77,7 +77,7 @@ export const formBlocks: IFormBlockData = {
         title: 'Github',
         inputs: [
             {
-                name: 'github-link',
+                name: 'githubLink',
                 label: <p>Вставьте ссылку на Github</p>,
                 placeholder: 'Вставьте ссылку на Github',
                 type: 'text',

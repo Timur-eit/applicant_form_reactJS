@@ -27,7 +27,7 @@ function validate(values: any, unblockSubmit?: (state: boolean) => void): IError
     }
     if (values.file && values.file[0].size > MAX_FILE_SIZE) {
         error.file = errorMessages.file.valid;
-    }
+    }    
     if (Object.keys(error).length === 0) {
         unblockSubmit && unblockSubmit(true);
     } else {

@@ -1,5 +1,11 @@
 @import './colors';
 
+@mixin mainHeader {
+    color: $primaryFont;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 38px;
+}
 @mixin errorMessage {
     color: $errorFont;
     font-weight: 400;
@@ -10,12 +16,6 @@
     padding: 0;
 }
 
-@mixin mainHeader {
-    color: $primaryFont;
-    font-weight: 500;
-    font-size: 40px;
-    line-height: 38px;
-}
 
 @mixin blockName {
     color: $primaryFont;
