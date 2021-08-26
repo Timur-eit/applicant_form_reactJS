@@ -15,6 +15,7 @@
         "colors",
         "combine",
         "content",
+        "data",
         "decline",
         "diactivate",
         "diactivte",
@@ -35,9 +36,11 @@
         "remotely",
         "secondary",
         "set",
+        "sorry",
         "state",
         "styles",
         "submit",
+        "submitted",
         "successful"
     ]
 }

@@ -21,9 +21,12 @@ interface ICheckboxProps {
   errors?: FormikErrors<any>;
   externalAction?: (state: boolean) => void;
   isChecked: string[];
-  setChecked: (value: string) => void;
-  setFieldValue: (inputName: string, value: any) => void;
+  setChecked: (value: string) => void;  
+  isDataSubmitted?: boolean;
+  
 }
+
+// const inputValues: string[] = [];
 
 function Checkbox(props: ICheckboxProps) {
   const {
@@ -36,9 +39,16 @@ function Checkbox(props: ICheckboxProps) {
     errors,
     externalAction,
     isChecked,
-    setChecked,
-    // setFieldValue,
-  } = props;
+    setChecked,    
+    isDataSubmitted
+  } = props;  
+
+  React.useEffect(() => {
+    if (isDataSubmitted) {
+      setChecked('agree');
+    }
+  }, [isDataSubmitted]);
+  // это костыль, sorry - баг вылез уже перед отправкой задания на проверку
 
   return (
     <div className="checkbox-container">
@@ -52,7 +62,7 @@ function Checkbox(props: ICheckboxProps) {
           errors[inputName] && <span>{errors[inputName]}</span>}
       </p>
 
-      {checkboxData.map((input, i) => {
+      {checkboxData.map((input, i) => {        
         return (
           <div key={`${input}${i}`} className="checkbox">
             <FormikConnectorTag

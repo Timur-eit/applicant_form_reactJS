@@ -15,6 +15,7 @@ import {
   userNameSelector,
   formDataSelector,
   formDataHandler,
+  isDataSubmittedSelector,
 } from "../../ducks/applicatForm";
 
 export default connect(
@@ -25,6 +26,7 @@ export default connect(
     isSubmitAvailable: isSubmitAvailableSelector(state),
     userName: userNameSelector(state),
     formData: formDataSelector(state),
+    isDataSubmitted: isDataSubmittedSelector(state),
   }),
   {
     setOpenSubmitWindow,

@@ -4,6 +4,7 @@ import "./style.scss";
 import fileReadyImg from "./img/file_ready.svg";
 import fileErrorImg from "./img/file_error.svg";
 import classNames from "classnames";
+import { useEffect } from "react";
 
 interface IFileInputProps {
   labelName:
@@ -14,13 +15,14 @@ interface IFileInputProps {
   required: boolean;
   touched?: FormikTouched<any>;
   errors?: FormikErrors<any>;
+  isDataSubmitted?: boolean,
 }
 
 const FileInput: React.FC<IFileInputProps> = (props) => {
   const [fileReady, setFileReady] = React.useState<boolean>(false);
   const [readyFileName, setReadyFileName] = React.useState<string | null>(null);
 
-  const { labelName, inputName, setFieldValue, required, errors } = props;
+  const { labelName, inputName, setFieldValue, required, errors, isDataSubmitted } = props;
 
   const cancelFile = () => {
     setFileReady(false);
@@ -36,6 +38,12 @@ const FileInput: React.FC<IFileInputProps> = (props) => {
     "file-ready": true,
     "file-ready--error": isError(),
   });
+
+  useEffect(() => {
+    if (isDataSubmitted) {
+      cancelFile();
+    }
+  }, [isDataSubmitted]);
 
   return (
     <div className="file-container">

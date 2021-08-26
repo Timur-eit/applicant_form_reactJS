@@ -27,6 +27,7 @@ interface IApplicantFormProps {
   setSubmitAvailable: (state: boolean) => void;
   userName: string | null;
   formDataHandler: (formValues: any) => void;
+  isDataSubmitted: boolean,
 }
 
 function ApplicantForm(props: IApplicantFormProps) {
@@ -41,6 +42,7 @@ function ApplicantForm(props: IApplicantFormProps) {
     setSubmitAvailable,
     userName,
     formDataHandler,
+    isDataSubmitted
   } = props;
 
   const submitButtonClasses = classNames({
@@ -76,6 +78,7 @@ function ApplicantForm(props: IApplicantFormProps) {
                           setFieldValue={setFieldValue}
                           required={true}
                           errors={errors}
+                          isDataSubmitted={isDataSubmitted}
                         />
                       </div>
                     );
@@ -145,15 +148,14 @@ function ApplicantForm(props: IApplicantFormProps) {
                       checkboxData={input.options ? input.options : []}
                       externalAction={setOpenPolicyWindow}
                       isChecked={checkedValues}
-                      setChecked={setCheckedValues}
-                      setFieldValue={setFieldValue}
+                      setChecked={setCheckedValues}                      
+                      isDataSubmitted={isDataSubmitted}
                     />
                   </div>
                 );
               })}
             </div>
-
-            {/* <Button className='submit-button' type='submit' disabled={!isSubmitAvailable}> */}
+            
             <Button className={submitButtonClasses} type="submit">
               Отправить
             </Button>

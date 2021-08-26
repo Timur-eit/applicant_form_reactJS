@@ -13,6 +13,7 @@ export const SET_SUBMIT_AVAILABLE = `${moduleName}/SET_SUBMIT_AVAILABLE`;
 export const SET_USER_NAME = `${moduleName}/SET_USER_NAME`;
 export const HANDLE_FORM_DATA = `${moduleName}/HANDLE_FORM_DATA`;
 export const CATCH_ERROR = `${moduleName}/CATCH_ERROR`;
+export const SET_DATA_SUBMITTED = `${moduleName}/SET_DATA_SUBMITTED`;
 
 export interface IReducerRecord {
   isOpenSubmitWindow: boolean;
@@ -21,6 +22,7 @@ export interface IReducerRecord {
   isSubmitAvailable: boolean;
   userName: string | null;
   formData: any;
+  isDataSubmitted: boolean;
   error: string | null;
 }
 
@@ -32,6 +34,7 @@ export const reducerRecord: IReducerRecord = {
   userName: null,
   formData: {},
   error: null,
+  isDataSubmitted: false,
 };
 
 export default function reducer(state = reducerRecord, action: IAction) {
@@ -66,6 +69,10 @@ export default function reducer(state = reducerRecord, action: IAction) {
       return Object.assign({}, state, {
         error: payload,
       });
+    case SET_DATA_SUBMITTED:
+      return Object.assign({}, state, {
+        isDataSubmitted: payload,
+      });
     default:
       return state;
   }
@@ -96,6 +103,10 @@ export const userNameSelector = createSelector(
 export const formDataSelector = createSelector(
   stateSelector,
   (state) => state.formData
+);
+export const isDataSubmittedSelector = createSelector(
+  stateSelector,
+  (state) => state.isDataSubmitted
 );
 
 export const setOpenSubmitWindow =
@@ -183,6 +194,10 @@ export const formDataHandler =
       // await axios(config)
       // * sending data to server
       console.log("Данные отправлены: ", dataToSend);
+      dispatch({
+        type: SET_DATA_SUBMITTED,
+        payload: true,
+      });
     } catch (err) {
       const error = err?.response?.data;
       console.log(error);

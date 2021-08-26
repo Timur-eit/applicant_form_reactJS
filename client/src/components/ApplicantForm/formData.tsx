@@ -131,3 +131,5 @@ export const formBlocks: IFormBlockData = {
 
 const allInputs = getAllInputsData(formBlocks);
 export const inputDefaultValues = getInputDefaultValues(allInputs);
+
+console.log(inputDefaultValues);
