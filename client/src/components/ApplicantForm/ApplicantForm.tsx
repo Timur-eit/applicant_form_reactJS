@@ -7,7 +7,7 @@ import validate from './validation/validation';
 import TextInput from 'components/TextInput'
 import RadioInput from 'components/RadioInput';
 import Checkbox from 'components/Checkbox';
-import { formBlocks, inputDefaultValues } from './formData';
+import { formName, formBlocks, inputDefaultValues } from './formData';
 
 import {acceptPrivacyPolicy, declinePrivacyPolicy} from 'shared/utils'
 import './style.scss'
@@ -37,6 +37,7 @@ function ApplicantForm(props: IApplicantFormProps) {
 
     return (
         <div className='form-container'>
+            <h1>{formName}</h1>
             <Formik
                 initialValues={inputDefaultValues}
                 onSubmit={(values, {resetForm}) => {

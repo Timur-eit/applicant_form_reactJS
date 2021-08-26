@@ -1,5 +1,6 @@
 import React from "react";
 import {FieldAttributes, FormikTouched, FormikErrors} from "formik";
+import './style.scss';
 
 type FormikField = FieldAttributes<any>
 interface ITextInputProps {
@@ -24,12 +25,14 @@ function TextInput(props: ITextInputProps) {
     } = props;    
 
     return (
-        <label>
-            {labelName}
-            <FormikConnectorTag name={inputName} placeholder={inputPlaceholder} />
-            {required && (touched && touched[inputName]) &&
-            (errors && errors[inputName]) &&
-            <span>{errors[inputName]}</span>}
+        <label className='text-input'>
+            <p className='label-name'>
+                {labelName}
+                {required && (touched && touched[inputName]) &&
+                (errors && errors[inputName]) &&
+                <p className='error-message'>{errors[inputName]}</p>}
+            </p>
+            <FormikConnectorTag name={inputName} placeholder={inputPlaceholder} />            
         </label>
     )
 }
