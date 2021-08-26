@@ -14,6 +14,7 @@ import './style.scss';
 
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import classNames from 'classnames';
 
 
 interface IApplicantFormProps {
@@ -42,6 +43,11 @@ function ApplicantForm(props: IApplicantFormProps) {
         userName,
         formDataHandler,
     } = props;
+
+    const submitButtonClasses = classNames({
+        'submit-button': true,            
+        'submit-button--disabled': !isSubmitAvailable,
+    });
 
     return (
         <div className='form-container'>
@@ -152,7 +158,8 @@ function ApplicantForm(props: IApplicantFormProps) {
                             })}
                         </div>
 
-                        <Button className='submit-button' type='submit' disabled={!isSubmitAvailable}>
+                        {/* <Button className='submit-button' type='submit' disabled={!isSubmitAvailable}> */}
+                        <Button className={submitButtonClasses} type='submit'>
                             Отправить
                         </Button>
 

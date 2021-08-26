@@ -21,6 +21,23 @@
         color: #FFFFFF;
         width: 100%;
         margin: 1em 0;
+        transition-duration: 300ms;        
+        
+        &--disabled {
+            background-color: $disabledElement;
+            border: none;
+            color: $disabledFont;
+        }
+        &:focus {
+            background-color: $focusedButton;
+        }        
+        
+        &:hover {
+            background-color: $hoverButton;
+        }
+
+        
+     
     }
 
     > form {
