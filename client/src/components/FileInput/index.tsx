@@ -15,14 +15,21 @@ interface IFileInputProps {
   required: boolean;
   touched?: FormikTouched<any>;
   errors?: FormikErrors<any>;
-  isDataSubmitted?: boolean,
+  isDataSubmitted?: boolean;
 }
 
 const FileInput: React.FC<IFileInputProps> = (props) => {
   const [fileReady, setFileReady] = React.useState<boolean>(false);
   const [readyFileName, setReadyFileName] = React.useState<string | null>(null);
 
-  const { labelName, inputName, setFieldValue, required, errors, isDataSubmitted } = props;
+  const {
+    labelName,
+    inputName,
+    setFieldValue,
+    required,
+    errors,
+    isDataSubmitted,
+  } = props;
 
   const cancelFile = () => {
     setFileReady(false);

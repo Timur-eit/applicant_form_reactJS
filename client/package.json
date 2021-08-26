@@ -1,5 +1,6 @@
 {
   "name": "applicant_form_client",
+  "homepage": "https://greatdeal.space/applicant_form",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
