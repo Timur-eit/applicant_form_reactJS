@@ -70,7 +70,7 @@ function ApplicantForm(props: IApplicantFormProps) {
                                         <div key={`${input}_${i}`}>
                                             <RadioInput
                                                 inputName={input.name}
-                                                generalLabelName={input.name}
+                                                generalLabelName={input.label}
                                                 FormikConnectorTag={Field}
                                                 required={input.required}
                                                 radioInputData={input.options ? input.options: []}

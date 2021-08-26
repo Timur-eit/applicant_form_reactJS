@@ -38,7 +38,7 @@ function Checkbox(props: ICheckboxProps) {
 
     return (
         <div>
-            {generalLabelName && generalLabelName}
+            <h2>{generalLabelName && generalLabelName}</h2>
             {checkboxData.map((input, i) => {
                 return (
                     <div key={`${input}${i}`} className='checkbox'>

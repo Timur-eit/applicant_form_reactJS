@@ -1,0 +1,21 @@
+@import 'shared/styles_modules/colors';
+@import 'shared/styles_modules/mixines';
+
+.radio-btn-container {
+    p {margin: 0;}
+    width: 70%;
+
+    .label-name {
+        p {margin: 0;}
+        display: flex;
+        align-items: center;
+        .error-message {
+            @include errorMessage;
+        }
+    }
+
+    .radio-btn {
+        display: flex;
+        justify-content: space-between;
+    }
+}
