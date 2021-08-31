@@ -110,18 +110,18 @@ export const isDataSubmittedSelector = createSelector(
 );
 
 export const setOpenSubmitWindow = (openState: boolean): AnyAction => {
-  return ({
-      type: SET_OPEN_SUBMIT_WINDOW,
-      payload: openState,
-  });
+  return {
+    type: SET_OPEN_SUBMIT_WINDOW,
+    payload: openState,
+  };
 };
 
 export const setOpenPolicyWindow = (openState: boolean): AnyAction => {
-  return ({
-      type: SET_OPEN_POLICY_WINDOW,
-      payload: openState,
-    });
+  return {
+    type: SET_OPEN_POLICY_WINDOW,
+    payload: openState,
   };
+};
 
 export const setCheckedValues =
   (
@@ -140,10 +140,10 @@ export const setCheckedValues =
   };
 
 export const setSubmitAvailable = (submitState: boolean): AnyAction => {
-  return ({
-      type: SET_SUBMIT_AVAILABLE,
-      payload: submitState,
-  });
+  return {
+    type: SET_SUBMIT_AVAILABLE,
+    payload: submitState,
+  };
 };
 
 export const formDataHandler =
@@ -182,14 +182,14 @@ export const formDataHandler =
     try {
       // await axios(config)
       // * sending data to server
-      console.log("Данные отправлены: ", dataToSend);
+      console.log("Данные отправлены: ", dataToSend); // eslint-disable-line
       dispatch({
         type: SET_DATA_SUBMITTED,
         payload: true,
       });
     } catch (err) {
       const error = err?.response?.data;
-      console.log(error);
+      console.error(error);
       await dispatch({
         type: CATCH_ERROR,
         payload: error,

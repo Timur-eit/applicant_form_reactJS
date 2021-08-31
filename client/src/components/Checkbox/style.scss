@@ -12,7 +12,7 @@
     .label-name {
       @include inputLabel;
     }
-    
+
     input {
       margin-right: 0.5em;
     }
@@ -32,7 +32,7 @@
   }
 }
 
-
-sub, sup {  
+sub,
+sup {
   vertical-align: baseline;
 }
