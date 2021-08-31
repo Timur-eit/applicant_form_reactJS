@@ -59,6 +59,7 @@ function ApplicantForm(props: IApplicantFormProps) {
           formDataHandler(values);
           setOpenSubmitWindow(true);
           resetForm();
+          setSubmitAvailable(false);
         }}
         validate={(values) => validate(values, setSubmitAvailable)}
       >
