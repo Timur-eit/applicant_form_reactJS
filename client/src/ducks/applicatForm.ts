@@ -109,22 +109,15 @@ export const isDataSubmittedSelector = createSelector(
   (state) => state.isDataSubmitted
 );
 
-export const setOpenSubmitWindow =
-  (
-    openState: boolean
-  ): ThunkAction<void, IStore<IReducerRecord>, unknown, AnyAction> =>
-  (dispatch): void => {
-    dispatch({
+export const setOpenSubmitWindow = (openState: boolean): AnyAction => {
+  return ({
       type: SET_OPEN_SUBMIT_WINDOW,
       payload: openState,
-    });
-  };
-export const setOpenPolicyWindow =
-  (
-    openState: boolean
-  ): ThunkAction<void, IStore<IReducerRecord>, unknown, AnyAction> =>
-  (dispatch): void => {
-    dispatch({
+  });
+};
+
+export const setOpenPolicyWindow = (openState: boolean): AnyAction => {
+  return ({
       type: SET_OPEN_POLICY_WINDOW,
       payload: openState,
     });
@@ -146,16 +139,12 @@ export const setCheckedValues =
     });
   };
 
-export const setSubmitAvailable =
-  (
-    submitState: boolean
-  ): ThunkAction<void, IStore<IReducerRecord>, unknown, AnyAction> =>
-  (dispatch): void => {
-    dispatch({
+export const setSubmitAvailable = (submitState: boolean): AnyAction => {
+  return ({
       type: SET_SUBMIT_AVAILABLE,
       payload: submitState,
-    });
-  };
+  });
+};
 
 export const formDataHandler =
   (
