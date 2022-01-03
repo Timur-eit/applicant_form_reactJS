@@ -1,4 +1,3 @@
-// import React from 'react';
 import FileInput from "components/FileInput";
 import { Formik, Field, Form } from "formik";
 import SubmitModal from "components/SubmitModal";

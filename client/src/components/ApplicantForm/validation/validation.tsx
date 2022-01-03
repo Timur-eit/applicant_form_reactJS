@@ -1,6 +1,6 @@
 import errorMessages from "./errorMessages";
 
-const MAX_FILE_SIZE = 16777216; //
+const MAX_FILE_SIZE = 16777216;
 
 interface IError {
   [field: string]: string | undefined;

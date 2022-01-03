@@ -1,7 +1,6 @@
 import { createSelector } from "reselect";
 import { ThunkAction } from "redux-thunk";
 import { AnyAction } from "redux";
-// import axios from 'axios';
 import { IAction, IStore } from "./interfaces";
 
 export const moduleName = "applicantForm";
@@ -182,15 +181,15 @@ export const formDataHandler =
     try {
       // await axios(config)
       // * sending data to server
-      console.log("Данные отправлены: ", dataToSend); // eslint-disable-line
+      console.warn("Данные отправлены: ", dataToSend);
       dispatch({
         type: SET_DATA_SUBMITTED,
         payload: true,
       });
-    } catch (err) {
+    } catch (err: any) {
       const error = err?.response?.data;
       console.error(error);
-      await dispatch({
+      dispatch({
         type: CATCH_ERROR,
         payload: error,
       });
