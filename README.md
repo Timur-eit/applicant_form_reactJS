@@ -2,4 +2,4 @@
 
 Client-side validation form (including for email format and maximum file size).
 
-[Project link](https://greatdeal.space/applicant_form/).
+[Project link](https://great-deal.space/applicant_form/).
